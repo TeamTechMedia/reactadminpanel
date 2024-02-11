@@ -1,6 +1,7 @@
 import { ButtonIcon } from "@/components/ui/buttons/ButtonIcon";
 import { ClickableTypography } from "@/components/ui/containers/ClickableTypography";
 import { Box, Chip, Typography } from "@mui/material";
+import { useRouter } from "next/router";
 
 export type StatusType = "Active" | "Blocked";
 
@@ -26,6 +27,10 @@ function getStatusColor(status: StatusType) {
 }
 
 const useColumns = () => {
+  const router = useRouter();
+  function handleView(id: string) {
+    router.push(`/evaluators/${id}`);
+  }
   const columns = [
     {
       flex: 0.012,
@@ -92,13 +97,18 @@ const useColumns = () => {
       minWidth: 30,
       headerName: "Actions",
       renderCell: ({ row }: CellType) => {
-        const { status } = row;
+        const { status, id } = row;
         const block = status === "Blocked";
         return (
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <ButtonIcon
-              icon={block ? "tabler:check" : "tabler:x"}
+              onClick={() => handleView(id)}
+              icon="tabler:eye"
               title="View"
+            />
+            <ButtonIcon
+              icon={block ? "tabler:check" : "tabler:x"}
+              title={block ? "Approve" : "Block"}
               color={block ? "lime" : "red"}
             />
           </Box>
