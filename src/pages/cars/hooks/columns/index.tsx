@@ -1,6 +1,8 @@
+import { ButtonIcon } from "@/components/ui/buttons/ButtonIcon";
 import { BoxHover } from "@/components/ui/containers/BoxHover";
 import IconifyIcon from "@/components/ui/icon";
 import { Box, Chip, IconButton, Tooltip, Typography } from "@mui/material";
+import { useRouter } from "next/router";
 
 type RowType = {
   id: string;
@@ -41,6 +43,11 @@ function getQCColor(qcStat: QCStatusType) {
 }
 
 const useColumns = () => {
+  const router = useRouter();
+  function handleView(id: string) {
+    router.push(`/cars/${id}`);
+  }
+
   const columns = [
     {
       flex: 0.012,
@@ -121,14 +128,14 @@ const useColumns = () => {
       minWidth: 30,
       headerName: "Actions",
       renderCell: ({ row }: any) => {
-        const { qc, auction } = row;
+        const { qc, auction, id } = row;
         return (
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Tooltip title="View">
-              <IconButton size="small" sx={{ color: "text.secondary" }}>
-                <IconifyIcon icon={"tabler:eye"} fontSize={"1.5rem"} />
-              </IconButton>
-            </Tooltip>
+            <ButtonIcon
+              icon="tabler:eye"
+              title="View"
+              onClick={() => handleView(id)}
+            />
             <Tooltip title="Check QC">
               <IconButton
                 size="small"
