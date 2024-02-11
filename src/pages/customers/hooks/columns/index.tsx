@@ -1,7 +1,7 @@
+import { ButtonIcon } from "@/components/ui/buttons/ButtonIcon";
 import { ClickableTypography } from "@/components/ui/containers/ClickableTypography";
-import IconifyIcon from "@/components/ui/icon";
-import { Box, Chip, IconButton, Tooltip, Typography } from "@mui/material";
-import Link from "next/link";
+import { Box, Chip, Typography } from "@mui/material";
+import { useRouter } from "next/router";
 
 export type StatusType = "Blocked" | "Not Verified" | "Verified";
 
@@ -40,6 +40,10 @@ function getDocumentColor(documentStatus: DocStatus) {
 }
 
 const useColumns = () => {
+  const router = useRouter();
+  function handleView(id: string) {
+    router.push(`/customers/${id}`);
+  }
   const columns = [
     {
       flex: 0.012,
@@ -121,35 +125,19 @@ const useColumns = () => {
       minWidth: 30,
       headerName: "Actions",
       renderCell: ({ row }: any) => {
-        const { status, documents } = row;
+        const { status, documents, id } = row;
         return (
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Tooltip title="View">
-              <IconButton
-                size="small"
-                component={Link}
-                sx={{ color: "text.secondary" }}
-                href={`/`}
-              >
-                <IconifyIcon icon={"tabler:eye"} fontSize={"1.5rem"} />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Verify">
-              <IconButton
-                size="small"
-                component={Link}
-                sx={{ color: "text.secondary" }}
-                href={`/`}
-                disabled={
-                  status === "Verified" || documents === "Not Submitted"
-                }
-              >
-                <IconifyIcon
-                  icon={"tabler:discount-check"}
-                  fontSize={"1.5rem"}
-                />
-              </IconButton>
-            </Tooltip>
+            <ButtonIcon
+              icon="tabler:eye"
+              title="View"
+              onClick={() => handleView(id)}
+            />
+            <ButtonIcon
+              icon="tabler:discount-check"
+              title="Verify"
+              disabled={status === "Verified" || documents === "Not Submitted"}
+            />
           </Box>
         );
       },

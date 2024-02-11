@@ -9,10 +9,11 @@ interface ButtonIconProps {
   size?: "small";
   onClick?: () => void;
   color?: string;
+  disabled?: boolean;
 }
 
 export const ButtonIcon = (props: ButtonIconProps) => {
-  const { size, onClick, title, icon, fontSize, color } = props;
+  const { size, onClick, title, icon, fontSize, color, disabled } = props;
 
   return (
     <Tooltip title={title}>
@@ -20,6 +21,7 @@ export const ButtonIcon = (props: ButtonIconProps) => {
         size={size ?? "small"}
         onClick={onClick && onClick}
         sx={{ color: "text.secondary" }}
+        disabled={disabled ?? false}
       >
         <IconifyIcon
           icon={icon}
