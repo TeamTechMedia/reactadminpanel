@@ -45,7 +45,7 @@ const SearchHeaders = (props: SearchHeaderProps) => {
           fillWhite
         />
       </Grid>
-      <Grid item xl={2}>
+      <Grid item xl={2} md={2} xs={4}>
         <SelectFormField
           control={control}
           id="status"

@@ -9,6 +9,7 @@ import Navigation from "@/components/ui/navigation";
 const VerticalLayoutWrapper = styled("div")({
   height: "100%",
   display: "flex",
+  overflowX: "auto",
 });
 
 const MainContentWrapper = styled(Box)<BoxProps>({
