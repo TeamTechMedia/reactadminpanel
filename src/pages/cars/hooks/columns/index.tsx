@@ -1,15 +1,18 @@
 import { ButtonIcon } from "@/components/ui/buttons/ButtonIcon";
-import { BoxHover } from "@/components/ui/containers/BoxHover";
+import { ClickableTypography } from "@/components/ui/containers/ClickableTypography";
 import IconifyIcon from "@/components/ui/icon";
+import { QCStatusType, getQCColor } from "@/functions/cars/get-qc-color";
+import { capitaliseFirstLetter } from "@/utils/capitalise-firstletter";
 import { Box, Chip, IconButton, Tooltip, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 
 type RowType = {
   id: string;
-  name: string;
-  qc: QCStatusType;
+  uniqueId: string;
+  model: string;
+  qcStatus: QCStatusType;
   auction: AuctionStatusType;
-  fuel: FuelType;
+  fuelType: FuelType;
 };
 
 type CellType = {
@@ -19,28 +22,6 @@ type CellType = {
 type FuelType = "Petrol" | "Diesel" | "Hybrid";
 
 type AuctionStatusType = "Pending" | "Rejected";
-
-type QCStatusType = "Pending" | "Rejected";
-
-const auctionStatus = {
-  Pending: "warning",
-  Rejected: "error",
-  Approved: "success",
-};
-
-const qcStatus = {
-  Pending: "warning",
-  Rejected: "error",
-  Approved: "success",
-};
-
-function getAuctionColor(auctionStat: AuctionStatusType) {
-  return auctionStatus[auctionStat];
-}
-
-function getQCColor(qcStat: QCStatusType) {
-  return qcStatus[qcStat];
-}
 
 const useColumns = () => {
   const router = useRouter();
@@ -52,18 +33,13 @@ const useColumns = () => {
     {
       flex: 0.012,
       field: "id",
-      minWidth: 110,
-      headerName: "Car ID",
+      minWidth: 120,
+      headerName: "Unique ID",
       headerClassName: "super-app-theme--header",
       renderCell: ({ row }: CellType) => {
-        const { id } = row;
-
+        const { uniqueId, id } = row;
         return (
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Typography noWrap>
-              <BoxHover>{id}</BoxHover>
-            </Typography>
-          </Box>
+          <ClickableTypography name={uniqueId} onClick={() => handleView(id)} />
         );
       },
     },
@@ -73,12 +49,10 @@ const useColumns = () => {
       minWidth: 120,
       headerName: "Car Name",
       renderCell: ({ row }: CellType) => {
-        const { name } = row;
+        const { model, id } = row;
 
         return (
-          <BoxHover sx={{ display: "flex", alignItems: "center" }}>
-            <Typography noWrap>{name}</Typography>
-          </BoxHover>
+          <ClickableTypography name={model} onClick={() => handleView(id)} />
         );
       },
     },
@@ -88,8 +62,10 @@ const useColumns = () => {
       minWidth: 50,
       headerName: "Fuel Type",
       renderCell: ({ row }: CellType) => {
-        const { fuel } = row;
-        return <Typography noWrap>{fuel}</Typography>;
+        const { fuelType } = row;
+        return (
+          <Typography noWrap>{capitaliseFirstLetter(fuelType)}</Typography>
+        );
       },
     },
     {
@@ -100,28 +76,28 @@ const useColumns = () => {
       renderCell: ({ row }: CellType) => {
         return (
           <Chip
-            label={row.qc}
+            label={row.qcStatus}
             variant="outlined"
-            color={getQCColor(row.qc) as any}
+            color={getQCColor(row.qcStatus) as "error" | "success" | "warning"}
           />
         );
       },
     },
-    {
-      flex: 0.026,
-      field: "auction",
-      minWidth: 50,
-      headerName: "Auction Status",
-      renderCell: ({ row }: CellType) => {
-        return (
-          <Chip
-            label={row.auction}
-            variant="outlined"
-            color={getAuctionColor(row.auction) as any}
-          />
-        );
-      },
-    },
+    // {
+    //   flex: 0.026,
+    //   field: "auction",
+    //   minWidth: 50,
+    //   headerName: "Auction Status",
+    //   renderCell: ({ row }: CellType) => {
+    //     return (
+    //       <Chip
+    //         label={row.auction}
+    //         variant="outlined"
+    //         color={getAuctionColor(row.auction) as any}
+    //       />
+    //     );
+    //   },
+    // },
     {
       flex: 0.02,
       field: "action",

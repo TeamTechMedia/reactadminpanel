@@ -89,7 +89,6 @@ const LoginPage = () => {
   }
 
   function saveUser(user: LoginData[]) {
-    console.log(user, "userData");
     setAuth({
       user: user?.[0],
       loading: false,

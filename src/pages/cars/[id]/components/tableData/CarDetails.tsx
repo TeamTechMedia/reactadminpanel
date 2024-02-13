@@ -1,4 +1,6 @@
+import { CarData } from "@/services/cars/list/types";
 import {
+  Chip,
   Paper,
   Table,
   TableBody,
@@ -7,43 +9,18 @@ import {
   TableRow,
 } from "@mui/material";
 import React from "react";
+import getCarData from "../../functions/get-car-data";
+import { QCStatusType, getQCColor } from "@/functions/cars/get-qc-color";
+import { ChipColorType } from "@/types/color/chipColor";
 
-const carData = [
-  {
-    label: "Name",
-    value: "Ananthakrishnan",
-  },
-  {
-    label: "Status",
-    value: "Not Verified",
-  },
-  {
-    label: "Phone Number",
-    value: "+91 99999 99999",
-  },
-  {
-    label: "Business Name As per GSTIN",
-    value: "Ananthakrishnan A",
-  },
-  {
-    label: "Business Address",
-    value: "Customer One One Customer One One, Kozhikode, Kerala",
-  },
-  {
-    label: "Pincode",
-    value: "670500",
-  },
-  {
-    label: "District, State",
-    value: "Kozhikode, Kerala",
-  },
-  {
-    label: "Security Deposit",
-    value: "Kozhikode, Kerala",
-  },
-];
+interface CarDetailProps {
+  details: CarData;
+}
 
-const CarDetails = () => {
+const CarDetails = (props: CarDetailProps) => {
+  const { details } = props;
+  const carData = getCarData(details);
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
@@ -54,7 +31,19 @@ const CarDetails = () => {
                 <TableCell component="th" scope="row">
                   {data.label}
                 </TableCell>
-                <TableCell>{data.value}</TableCell>
+                <TableCell>
+                  {data.isChip ? (
+                    <Chip
+                      variant="outlined"
+                      color={
+                        getQCColor(data.value as QCStatusType) as ChipColorType
+                      }
+                      label={data.value}
+                    />
+                  ) : (
+                    data.value
+                  )}
+                </TableCell>
               </TableRow>
             );
           })}
