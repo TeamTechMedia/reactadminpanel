@@ -1,5 +1,4 @@
 import FontWrapper from "@/components/ui/wrappers/FontWrapper";
-import { AuthProvider } from "@/context/AuthContext";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import {
@@ -74,11 +73,9 @@ export default function App({ Component, pageProps }: ExtendedAppProps) {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <FontWrapper>
-          <AuthProvider>
-            <Guard authGuard={authGuard} guestGuard={guestGuard}>
-              {getLayout(<Component {...pageProps} />)}
-            </Guard>
-          </AuthProvider>
+          <Guard authGuard={authGuard} guestGuard={guestGuard}>
+            {getLayout(<Component {...pageProps} />)}
+          </Guard>
           <Toaster />
         </FontWrapper>
       </ThemeProvider>

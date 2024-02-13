@@ -2,7 +2,9 @@ import { Card, CardHeader, Grid, Theme, useMediaQuery } from "@mui/material";
 import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import useColumns from "../../hooks/columns";
-import { cars } from "@/dummy/cars";
+import { useGetCars } from "@/services/cars/list/get";
+import { filterObjects } from "@/utils/filter-objects";
+import { addKey } from "@/utils/add-key";
 
 const DataTable = () => {
   const isSmallScreen = useMediaQuery((theme: Theme) =>
@@ -15,6 +17,13 @@ const DataTable = () => {
     page: 0,
     pageSize: 10,
   });
+
+  const { data: carsData, isLoading } = useGetCars({
+    params,
+  });
+  const carWithoutId = carsData?.data?.data;
+  const filteredCars = filterObjects(carWithoutId);
+  const cars = addKey(filteredCars, "id", "_id");
 
   return (
     <Card>
@@ -34,13 +43,15 @@ const DataTable = () => {
           disableRowSelectionOnClick
           disableColumnSelector
           columns={columns}
-          rows={cars as any}
+          loading={isLoading}
+          rows={(cars as any) ?? []}
+          rowCount={10}
           paginationMode="server"
           paginationModel={params}
           onPaginationModelChange={setParams}
-          initialState={{
-            pagination: { paginationModel: { page: 0, pageSize: 15 } },
-          }}
+          // initialState={{
+          //   pagination: { paginationModel: { page: 1, pageSize: 10 } },
+          // }}
         />
       </Grid>
     </Card>
