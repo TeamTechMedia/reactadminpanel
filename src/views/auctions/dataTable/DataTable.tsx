@@ -16,6 +16,7 @@ const DataTable = () => {
     pageSize: 10,
   });
 
+
   return (
     <Card>
       <CardHeader
@@ -35,12 +36,13 @@ const DataTable = () => {
           disableColumnSelector
           columns={columns}
           rows={auction as any}
+          rowCount={10}
           paginationMode="server"
           paginationModel={params}
           onPaginationModelChange={setParams}
-          initialState={{
-            pagination: { paginationModel: { page: 0, pageSize: 15 } },
-          }}
+          // initialState={{
+          //   pagination: { paginationModel: { page: 1, pageSize: 10 } },
+          // }}
         />
       </Grid>
     </Card>
