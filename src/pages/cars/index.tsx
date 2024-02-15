@@ -1,6 +1,6 @@
 import React from "react";
-import SearchHeaders from "../customers/components/search/SearchHeaders";
-import DataTable from "../cars/components/table/DataTable";
+import SearchHeaders from "../../views/customers/searchHeader/SearchHeaders";
+import DataTable from "../../views/cars/dataTable/DataTable";
 import { Grid } from "@mui/material";
 import { useForm } from "react-hook-form";
 

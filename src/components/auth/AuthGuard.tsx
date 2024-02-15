@@ -3,8 +3,7 @@ import { ReactNode, ReactElement, useEffect } from "react";
 
 // ** Next Import
 import { useRouter } from "next/router";
-import { useAuthStore } from "@/store/auth/store";
-import { verifyUser } from "@/functions/auth/verify-user";
+import { AUTH_REDIRECTION_LINK } from "@/configs/auth/routes";
 
 interface AuthGuardProps {
   children: ReactNode;
@@ -12,30 +11,27 @@ interface AuthGuardProps {
 }
 
 const AuthGuard = (props: AuthGuardProps) => {
-  const { children, fallback } = props;
+  const { children } = props;
   const router = useRouter();
-  const { auth } = useAuthStore();
-  const isVerifiedUser = verifyUser(auth.user.role);
+
   useEffect(
     () => {
+      const hasAccess = window.localStorage.getItem("accessToken");
+
       if (!router.isReady) {
         return;
       }
 
-      if (!isVerifiedUser || !auth) {
+      if (!hasAccess) {
         router.replace({
-          pathname: "/login",
+          pathname: AUTH_REDIRECTION_LINK,
           query: { returnUrl: router.asPath },
         });
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [router.route, auth],
+    [router],
   );
-
-  if (!isVerifiedUser) {
-    return fallback;
-  }
 
   return <>{children}</>;
 };
