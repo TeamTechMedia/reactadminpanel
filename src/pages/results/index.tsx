@@ -1,8 +1,8 @@
 import React from "react";
-import SearchHeaders from "../customers/components/search/SearchHeaders";
+import SearchHeaders from "../../views/customers/searchHeader/SearchHeaders";
 import { Grid } from "@mui/material";
 import { useForm } from "react-hook-form";
-import DataTable from "./components/table/DataTable";
+import DataTable from "../../views/results/dataTable/DataTable";
 
 const Results = () => {
   const { control } = useForm();
