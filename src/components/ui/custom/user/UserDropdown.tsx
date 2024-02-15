@@ -62,7 +62,8 @@ const UserDropdown = () => {
       loading: false,
       user: defaultLogin.user,
     });
-    // router.push("/login");
+    localStorage.removeItem("accessToken");
+    router.push("/login");
   };
 
   const userName = auth.user.fullname?.toUpperCase() ?? "User";

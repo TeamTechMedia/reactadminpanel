@@ -1,8 +1,8 @@
 import TabList from "@/components/ui/tabs/TabList";
 import { Button, Grid } from "@mui/material";
 import { useState } from "react";
-import CustomerTabs from "./components/tabs/CustomerTabs";
-import CustomerDocuments from "./components/tabs/CustomerDocuments";
+import CustomerTabs from "../../../views/customers/tabContents/CustomerTabs";
+import CustomerDocuments from "../../../views/customers/tabContents/CustomerDocuments";
 import { CustomerTabTypes } from "../../../types/customers/tabType";
 
 const tabs = [

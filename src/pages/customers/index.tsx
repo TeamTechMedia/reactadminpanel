@@ -1,8 +1,8 @@
 import { Grid } from "@mui/material";
 import React from "react";
-import SearchHeaders from "./components/search/SearchHeaders";
+import SearchHeaders from "../../views/customers/searchHeader/SearchHeaders";
 import { useForm } from "react-hook-form";
-import DataTable from "./components/table/DataTable";
+import DataTable from "../../views/customers/dataTable/DataTable";
 
 const defaultValues = {
   name: "",
