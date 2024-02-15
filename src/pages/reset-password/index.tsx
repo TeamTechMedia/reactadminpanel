@@ -1,7 +1,9 @@
 import PasswordField from "@/components/ui/inputfields/PasswordFormField";
+import BlankLayout from "@/layouts/components/BlankLayout";
 import useCustomToast from "@/utils/toast";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button, Grid, Typography } from "@mui/material";
+import { ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
@@ -46,7 +48,7 @@ function ResetPassword() {
       display={"flex"}
       justifyContent={"center"}
       alignContent={"center"}
-      minHeight={"100%"}
+      minHeight={"100vh"}
     >
       <Box
         display={"flex"}
@@ -105,5 +107,11 @@ function ResetPassword() {
     </Box>
   );
 }
+
+ResetPassword.getLayout = (page: ReactNode) => (
+  <BlankLayout>{page}</BlankLayout>
+);
+ResetPassword.guestGuard = true;
+ResetPassword.authGuard = false;
 
 export default ResetPassword;

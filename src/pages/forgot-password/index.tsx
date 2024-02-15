@@ -1,9 +1,10 @@
 import CenteredGrid from "@/components/ui/containers/CenteredGrid";
 import TextFormField from "@/components/ui/inputfields/TextFormField";
+import BlankLayout from "@/layouts/components/BlankLayout";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
@@ -37,7 +38,7 @@ const ForgotPassword = () => {
   }
 
   return (
-    <CenteredGrid sx={{ minHeight: "100%", width: "100%" }}>
+    <CenteredGrid sx={{ minHeight: "100vh", width: "100%" }}>
       <Grid
         display={"flex"}
         flexDirection={"column"}
@@ -85,5 +86,11 @@ const ForgotPassword = () => {
     </CenteredGrid>
   );
 };
+
+ForgotPassword.getLayout = (page: ReactNode) => (
+  <BlankLayout>{page}</BlankLayout>
+);
+ForgotPassword.guestGuard = true;
+ForgotPassword.authGuard = false;
 
 export default ForgotPassword;
