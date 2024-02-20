@@ -58,12 +58,12 @@ const UserDropdown = () => {
 
   const handleLogout = () => {
     handleDropdownClose();
+    localStorage.removeItem("accessToken");
+    router.push("/login");
     setAuth({
       loading: false,
       user: defaultLogin.user,
     });
-    localStorage.removeItem("accessToken");
-    router.push("/login");
   };
 
   const userName = auth.user.fullname?.toUpperCase() ?? "User";

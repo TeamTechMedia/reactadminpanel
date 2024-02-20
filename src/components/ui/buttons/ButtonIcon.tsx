@@ -2,8 +2,8 @@ import { IconButton, Tooltip } from "@mui/material";
 import IconifyIcon from "../icon";
 
 interface ButtonIconProps {
-  title: string;
   icon: string;
+  title?: string;
   fontSize?: string | number;
   isLink?: boolean;
   size?: "small";
