@@ -109,7 +109,6 @@ const LoginPage = () => {
   }
 
   const onSubmit = () => {
-    // handleLoading();
     const authLogin = {
       role: "SUPERADMIN",
       userId: "53FI46",
