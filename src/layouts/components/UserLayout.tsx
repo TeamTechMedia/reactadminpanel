@@ -15,7 +15,7 @@ interface Props {
 const AppBrand = () => {
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
-      <Image src="/" alt="logo" width="45" height="34" />
+      <Image loading="lazy" src="/" alt="logo" width="45" height="34" />
     </Box>
   );
 };

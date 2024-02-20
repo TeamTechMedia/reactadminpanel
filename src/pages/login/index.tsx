@@ -93,6 +93,8 @@ const LoginPage = () => {
       user: user?.[0],
       loading: false,
     });
+    const stringifiedUser = JSON.stringify(user?.[0]);
+    localStorage.setItem("userData", stringifiedUser);
   }
 
   function handleLoginSuccess(res: LoginSuccessResponse) {
