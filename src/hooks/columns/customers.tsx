@@ -44,7 +44,7 @@ const useColumns = () => {
   function handleView(id: string) {
     router.push(`/customers/${id}`);
   }
-  const columns = [
+  const columns: any = [
     {
       flex: 0.012,
       field: "id",
