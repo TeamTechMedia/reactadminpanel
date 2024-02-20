@@ -28,7 +28,7 @@ export interface LoginData {
   _id: string;
   userId: string;
   isBlocked: boolean;
-  role: RoleType;
+  role: RoleType | "";
   createdAt: string;
   updatedAt: string;
   email: string;

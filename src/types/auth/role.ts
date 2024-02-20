@@ -1,1 +1,4 @@
-export type RoleType = "SUPERADMIN" | "";
+export type RoleType = "SUPERADMIN";
+export interface HomeRouteTypes {
+  SUPERADMIN: string;
+}

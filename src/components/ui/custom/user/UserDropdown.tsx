@@ -59,6 +59,7 @@ const UserDropdown = () => {
   const handleLogout = () => {
     handleDropdownClose();
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("userData");
     router.push("/login");
     setAuth({
       loading: false,

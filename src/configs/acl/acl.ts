@@ -5,7 +5,7 @@ import { AbilityBuilder, createMongoAbility } from "@casl/ability";
 /**
  * @param user contains details about logged in user: its id, name, email, etc
  */
-export function defineAbilitiesFor(role: RoleType) {
+export function defineAbilitiesFor(role: RoleType | "") {
   const { can, build } = new AbilityBuilder(createMongoAbility);
   const isVerifiedUser = verifyUser(role);
   if (isVerifiedUser) {
