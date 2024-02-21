@@ -25,8 +25,8 @@ const DataTable = () => {
   const carWithoutId = carsData?.data?.data;
   const filteredCars = filterObjects(carWithoutId);
   const cars = addKey(filteredCars, "id", "_id");
-  console.log(cars)
-  
+  console.log(cars);
+
   return (
     <Card>
       <CardHeader
