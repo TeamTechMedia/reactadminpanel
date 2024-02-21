@@ -6,6 +6,11 @@ export type LoginType = {
   password: string;
 };
 
+export type LoginParamType = {
+  userId: string;
+  password: string;
+};
+
 export interface LoginSuccessResponse {
   data: LoginSuccess;
   status: number;
