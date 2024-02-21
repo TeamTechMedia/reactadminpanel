@@ -1,4 +1,4 @@
-import { Card, CardHeader, Grid, Theme, useMediaQuery } from "@mui/material";
+import { Card, CardHeader, Grid } from "@mui/material";
 import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import useColumns from "../../../hooks/columns/cars";
@@ -7,11 +7,6 @@ import { filterObjects } from "@/utils/filter-objects";
 import { addKey } from "@/utils/add-key";
 
 const DataTable = () => {
-  const isSmallScreen = useMediaQuery((theme: Theme) =>
-    theme.breakpoints.down("sm"),
-  );
-  const defaultRowHeight = 55;
-
   const columns = useColumns();
   const [params, setParams] = useState({
     page: 0,
@@ -36,9 +31,6 @@ const DataTable = () => {
         <DataGrid
           autoHeight
           pagination
-          getRowHeight={() => {
-            return isSmallScreen ? defaultRowHeight / 2 : defaultRowHeight;
-          }}
           columnHeaderHeight={55}
           disableRowSelectionOnClick
           disableColumnSelector

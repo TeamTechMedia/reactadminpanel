@@ -4,6 +4,7 @@ type ThemeConfig = {
   afterVerticalNavMenuContentPosition: "fixed" | "static";
   beforeVerticalNavMenuContentPosition: "fixed" | "static";
   navSubItemIcon: string;
+  defaultDataGridRowHeight: number;
 };
 
 const themeConfig: ThemeConfig = {
@@ -12,6 +13,7 @@ const themeConfig: ThemeConfig = {
   afterVerticalNavMenuContentPosition: "fixed",
   beforeVerticalNavMenuContentPosition: "fixed",
   navSubItemIcon: "tabler:circle",
+  defaultDataGridRowHeight: 55,
 };
 
 export default themeConfig;

@@ -34,13 +34,7 @@ const ContentWrapper = styled("main")(({ theme }) => ({
 
 const VerticalLayout = (props: LayoutProps) => {
   // ** Props
-  const {
-    children,
-    scrollToTop,
-    contentHeightFixed,
-    verticalLayoutProps,
-    hidden,
-  } = props;
+  const { children, contentHeightFixed, verticalLayoutProps, hidden } = props;
   // ** Vars
   const navigationBorderWidth = 0;
   const { navigationSize } = themeConfig;
@@ -66,11 +60,9 @@ const VerticalLayout = (props: LayoutProps) => {
           navMenuContent={verticalLayoutProps.navMenu.content}
           navMenuBranding={verticalLayoutProps.navMenu.branding}
           menuLockedIcon={null}
-          // menuLockedIcon={verticalLayoutProps.navMenu.lockedIcon}
           verticalNavItems={verticalLayoutProps.navMenu.navItems}
           navMenuProps={verticalLayoutProps.navMenu.componentProps}
           menuUnlockedIcon={null}
-          // menuUnlockedIcon={verticalLayoutProps.navMenu.unlockedIcon}
           afterNavMenuContent={verticalLayoutProps.navMenu.afterContent}
           beforeNavMenuContent={verticalLayoutProps.navMenu.beforeContent}
           {...props}
@@ -79,7 +71,6 @@ const VerticalLayout = (props: LayoutProps) => {
           className="layout-content-wrapper"
           sx={{ ...(contentHeightFixed && { maxHeight: "100vh" }) }}
         >
-          {/* AppBar Component */}
           <AppBar
             toggleNavVisibility={toggleNavVisibility}
             appBarContent={verticalLayoutProps.appBar?.content}
@@ -87,7 +78,6 @@ const VerticalLayout = (props: LayoutProps) => {
             {...props}
           />
 
-          {/* Content */}
           <ContentWrapper
             className="layout-page-content"
             sx={{
@@ -104,17 +94,6 @@ const VerticalLayout = (props: LayoutProps) => {
           </ContentWrapper>
         </MainContentWrapper>
       </VerticalLayoutWrapper>
-
-      {/* Scroll to top button */}
-      {
-        scrollToTop ? scrollToTop(props) : ""
-
-        // <ScrollToTop className='mui-fixed'>
-        //   <Fab color='primary' size='small' aria-label='scroll back to top'>
-        //     <Icon icon='tabler:arrow-up' />
-        //   </Fab>
-        // </ScrollToTop>
-      }
     </>
   );
 };
