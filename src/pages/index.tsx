@@ -16,7 +16,7 @@ const Home = () => {
   useEffect(() => {
     const hasAccess = window.localStorage.getItem("accessToken");
     const user = localStorage.getItem("userData");
-    const parsedUser = JSON.parse(user ?? "");
+    const parsedUser = user ? JSON.parse(user ?? "") : {};
 
     if (!router.isReady) {
       return;
