@@ -8,34 +8,35 @@ import { Control, FieldErrors } from "react-hook-form";
 type EvaluatorFormProps = {
   control: Control<any>;
   errors: FieldErrors<EvaluatorAddFormType>;
+  apiError: any;
 };
 
 const EvaluatorForm = (props: EvaluatorFormProps) => {
-  const { control, errors } = props;
+  const { control, errors, apiError } = props;
   return (
     <>
       <Grid item xs={12}>
         <TextFormField
           size="medium"
           control={control}
-          id="fullName"
+          id="fullname"
           label="Name"
           placeholder="Enter Name"
           required
         />
-        {errors.fullName && <ErrorBox error={errors.fullName} />}
+        {errors.fullname && <ErrorBox error={errors.fullname} />}
       </Grid>
       <Grid item xs={12}>
         <TextFormField
           size="medium"
           control={control}
-          id="contactNumber"
+          id="contactNo"
           label="Phone Number"
           placeholder="Enter Phone Number"
           type="tel"
           required
         />
-        {errors.contactNumber && <ErrorBox error={errors.contactNumber} />}
+        {errors.contactNo && <ErrorBox error={errors.contactNo} />}
       </Grid>
       <Grid item xs={12}>
         <TextFormField
@@ -60,6 +61,11 @@ const EvaluatorForm = (props: EvaluatorFormProps) => {
         />
         {errors.location && <ErrorBox error={errors.location} />}
       </Grid>
+      {apiError && (
+        <Grid item xs={12}>
+          <ErrorBox error={apiError} />
+        </Grid>
+      )}
     </>
   );
 };

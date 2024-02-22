@@ -1,5 +1,6 @@
 import { ButtonIcon } from "@/components/ui/buttons/ButtonIcon";
 import { ClickableTypography } from "@/components/ui/containers/ClickableTypography";
+import { capitaliseFirstLetter } from "@/utils/capitalise-firstletter";
 import { Box, Chip, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 
@@ -12,6 +13,7 @@ interface RowType {
   fullname: string;
   contactNo: string;
   id: string;
+  isBlocked: boolean;
 }
 
 type CellType = {
@@ -74,7 +76,9 @@ const useColumns = () => {
       headerName: "Location",
       renderCell: ({ row }: CellType) => {
         const { location } = row;
-        return <Typography noWrap>{location}</Typography>;
+        return (
+          <Typography noWrap>{capitaliseFirstLetter(location)}</Typography>
+        );
       },
     },
     {
@@ -83,7 +87,7 @@ const useColumns = () => {
       minWidth: 50,
       headerName: "Status",
       renderCell: ({ row }: CellType) => {
-        const { status } = row;
+        const status = !row.isBlocked ? "Active" : "Blocked";
         return (
           <Chip
             label={status}
