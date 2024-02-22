@@ -1,6 +1,6 @@
 export interface EvaluatorAddFormType {
-  fullName: string;
+  fullname: string;
   email: string;
-  contactNumber: string;
+  contactNo: string;
   location: string;
 }

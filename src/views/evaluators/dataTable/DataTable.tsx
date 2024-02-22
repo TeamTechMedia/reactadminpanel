@@ -10,6 +10,10 @@ import { useForm } from "react-hook-form";
 import { EvaluatorAddFormType } from "@/types/evaluators/formTypes";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useFormSchema } from "@/hooks/schema/evaluators";
+import { useAddEvaluators } from "@/services/evaluators/create/post";
+import { EvaluatorsCreateResponseData } from "@/services/evaluators/create/types";
+import { useQueryClient } from "@tanstack/react-query";
+import EvaluatorSuccessModal from "../modals/EvaluatorSuccessModal";
 
 const defaultValues = {
   fullName: "",
@@ -19,14 +23,15 @@ const defaultValues = {
 };
 
 const DataTable = () => {
-  // States
   const [params, setParams] = useState<EvaluatorsGetParams>({
     page: 0,
     pageSize: 10,
     role: "EVALUATOR",
   });
   const [open, setOpen] = useState(false);
-  // Hooks
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const [successMsg, setSuccessMsg] = useState({});
+
   const columns = useColumns();
   const schema = useFormSchema();
   const {
@@ -44,13 +49,32 @@ const DataTable = () => {
   const data = evaluators?.data?.data;
   const dataWithId = addKey(data, "id", "_id") || [];
 
+  const addEvaluator = useAddEvaluators();
+  const queryClient = useQueryClient();
+
   function handleClick() {
     setOpen(!open);
     reset();
+    setSuccessMsg({});
   }
 
   function onSubmit(val: EvaluatorAddFormType) {
-    console.log(val, "values");
+    const body = {
+      ...val,
+      role: "EVALUATOR",
+    };
+    addEvaluator.mutate(body, {
+      onSuccess: (res) => handleSuccess(res.data.data?.[0]),
+    });
+  }
+
+  function handleSuccess(res: EvaluatorsCreateResponseData) {
+    handleClick();
+    queryClient.invalidateQueries({
+      queryKey: ["evaluators"],
+    });
+    setSuccessMsg(res);
+    setOpenSuccess(!openSuccess);
   }
 
   return (
@@ -93,6 +117,12 @@ const DataTable = () => {
         onSubmit={onSubmit}
         control={control}
         errors={errors}
+        apiError={addEvaluator.error}
+      />
+      <EvaluatorSuccessModal
+        open={openSuccess}
+        setOpen={setOpenSuccess}
+        successMsg={successMsg}
       />
     </>
   );

@@ -12,10 +12,19 @@ type EvaluatorDrawerProps = {
   handleSubmit: UseFormHandleSubmit<any>;
   onSubmit: (val: EvaluatorAddFormType) => void;
   errors: FieldErrors<EvaluatorAddFormType>;
+  apiError: any;
 };
 
 const EvaluatorDrawer = (props: EvaluatorDrawerProps) => {
-  const { open, handleClick, control, handleSubmit, onSubmit, errors } = props;
+  const {
+    open,
+    handleClick,
+    control,
+    handleSubmit,
+    onSubmit,
+    errors,
+    apiError,
+  } = props;
 
   return (
     <Drawer
@@ -28,7 +37,11 @@ const EvaluatorDrawer = (props: EvaluatorDrawerProps) => {
       <DrawerHeader heading="Add Evaluator" handleClose={handleClick} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container padding={2} display={"flex"} gap={2}>
-          <EvaluatorForm control={control} errors={errors} />
+          <EvaluatorForm
+            control={control}
+            errors={errors}
+            apiError={apiError}
+          />
           <DrawerActions handleCancel={handleClick} />
         </Grid>
       </form>
