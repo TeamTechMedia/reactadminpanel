@@ -17,7 +17,8 @@ const DataTable = (props: DataTableProps) => {
     pageSize: 10,
     role: "EVALUATOR",
   });
-
+  const [open, setOpen] = useState(false);
+  // Hooks
   const columns = useColumns();
 
   const { data: evaluators, isLoading } = useGetEvaluators({
