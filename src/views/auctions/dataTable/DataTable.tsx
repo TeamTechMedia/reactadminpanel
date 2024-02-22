@@ -16,7 +16,6 @@ const DataTable = () => {
     pageSize: 10,
   });
 
-
   return (
     <Card>
       <CardHeader

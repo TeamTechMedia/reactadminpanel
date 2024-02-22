@@ -8,9 +8,10 @@ export type StatusType = "Active" | "Blocked";
 interface RowType {
   status: StatusType;
   location: string;
+  userId: string;
+  fullname: string;
+  contactNo: string;
   id: string;
-  name: string;
-  phone: string;
 }
 
 type CellType = {
@@ -39,9 +40,10 @@ const useColumns = () => {
       headerName: "Evaluator ID",
       headerClassName: "super-app-theme--header",
       renderCell: ({ row }: CellType) => {
-        const { id } = row;
+        const { userId } = row;
+        console.log(row, "idCheck");
 
-        return <ClickableTypography name={id} />;
+        return <ClickableTypography name={userId} />;
       },
     },
     {
@@ -50,19 +52,19 @@ const useColumns = () => {
       minWidth: 120,
       headerName: "Evaluator Name",
       renderCell: ({ row }: CellType) => {
-        const { name } = row;
+        const { fullname } = row;
 
-        return <ClickableTypography name={name} />;
+        return <ClickableTypography name={fullname} />;
       },
     },
     {
       flex: 0.03,
-      field: "phone",
+      field: "contactNo",
       minWidth: 50,
       headerName: "Phone No.",
       renderCell: ({ row }: CellType) => {
-        const { phone } = row;
-        return <Typography noWrap>{phone}</Typography>;
+        const { contactNo } = row;
+        return <Typography noWrap>{contactNo}</Typography>;
       },
     },
     {
