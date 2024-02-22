@@ -18,7 +18,9 @@ const DataTable = (props: DataTableProps) => {
     role: "EVALUATOR",
   });
   const [open, setOpen] = useState(false);
-  // Hooks
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const [successMsg, setSuccessMsg] = useState({});
+
   const columns = useColumns();
 
   const { data: evaluators, isLoading } = useGetEvaluators({
