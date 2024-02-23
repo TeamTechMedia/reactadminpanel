@@ -15,6 +15,7 @@ const DataTable = (props: DataTableProps) => {
   const [params, setParams] = useState<EvaluatorsGetParams>({
     page: 0,
     pageSize: 10,
+    role: "EVALUATOR",
   });
 
   const columns = useColumns();
