@@ -1,15 +1,17 @@
 import TabList from "@/components/ui/tabs/TabList";
+import { useGetEvaluator } from "@/services/evaluators/view/get";
 import CustomerDocuments from "@/views/customers/tabContents/CustomerDocuments";
-import CustomerTabs from "@/views/customers/tabContents/CustomerTabs";
+import EvaluatorDetails from "@/views/evaluators/tabContents/EvaluatorDetails";
 import { Button, Grid } from "@mui/material";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 
-type EvaluatorTabTypes = "customer_details" | "documents";
+type EvaluatorTabTypes = "evaluator_details" | "documents";
 
 const tabs = [
   {
     label: "Evaluator Details",
-    value: "customer_details",
+    value: "evaluator_details",
   },
   {
     label: "Documents",
@@ -19,9 +21,13 @@ const tabs = [
 
 const EvaluatorPage = () => {
   const [value, setValue] = useState(tabs[0].value);
+  const router = useRouter();
+  const id = router.query.id;
+  const { data } = useGetEvaluator(id as string);
+  const evaluator = data?.data?.data?.[0];
 
   const tabComponents = {
-    customer_details: <CustomerTabs value={value} />,
+    evaluator_details: <EvaluatorDetails data={evaluator} />,
     documents: <CustomerDocuments />,
   };
 
