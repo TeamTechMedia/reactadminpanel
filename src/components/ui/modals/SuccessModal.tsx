@@ -5,6 +5,7 @@ import {
   Dialog,
   DialogActions,
   DialogTitle,
+  Divider,
   Grid,
   Grow,
   IconButton,
@@ -23,6 +24,8 @@ interface Props {
   titleFont?: number;
   titleWeight?: number;
   iconColor?: string;
+  hideClose?: boolean;
+  hideActions?: boolean;
 }
 
 const SuccessModal = (props: Props) => {
@@ -37,6 +40,8 @@ const SuccessModal = (props: Props) => {
     dailogueTitle,
     ContentComponent,
     iconColor,
+    hideClose,
+    hideActions,
   } = props;
 
   return (
@@ -70,16 +75,23 @@ const SuccessModal = (props: Props) => {
             {dailogueTitle}
           </Typography>
         </Grid>
-        <Grid display={"flex"} alignContent={"center"}>
-          <IconButton sx={{ paddingY: 0, paddingX: 1 }} onClick={handleClose}>
-            <Icon icon={"tabler:x"} color="secondary" />
-          </IconButton>
-        </Grid>
+        {!hideClose && (
+          <Grid display={"flex"} alignContent={"center"}>
+            <IconButton sx={{ paddingY: 0, paddingX: 1 }} onClick={handleClose}>
+              <Icon icon={"tabler:x"} color="secondary" />
+            </IconButton>
+          </Grid>
+        )}
       </DialogTitle>
+      <Divider />
       <ContentComponent />
-      <DialogActions className="dialog-actions-dense">
-        <Button onClick={handleClose}>Close</Button>
-      </DialogActions>
+      {!hideActions && (
+        <DialogActions className="dialog-actions-dense">
+          <Button variant="contained" onClick={handleClose}>
+            Copy
+          </Button>
+        </DialogActions>
+      )}
     </Dialog>
   );
 };
