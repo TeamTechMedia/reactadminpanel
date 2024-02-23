@@ -1,5 +1,6 @@
 import { EvaluatorViewResponse } from "@/services/evaluators/view/types";
 import { capitaliseFirstLetter } from "@/utils/capitalise-firstletter";
+import { formatDate } from "@/utils/format-date";
 
 export const getEvaluatorData = (data: EvaluatorViewResponse | undefined) => {
   return (
@@ -22,7 +23,7 @@ export const getEvaluatorData = (data: EvaluatorViewResponse | undefined) => {
       },
       {
         label: "Location",
-        value: data.location,
+        value: capitaliseFirstLetter(data.location),
       },
       {
         label: "Role",
@@ -38,7 +39,13 @@ export const getEvaluatorData = (data: EvaluatorViewResponse | undefined) => {
       },
       {
         label: "Created at",
-        value: data.createdAt,
+        value: formatDate(data.createdAt),
+      },
+      {
+        label: "Cars Evaluated",
+        value: data.evaluatedCarId.length
+          ? data.evaluatedCarId
+          : "No Cars Evaluated",
       },
     ]
   );

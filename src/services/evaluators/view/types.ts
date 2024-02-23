@@ -21,6 +21,6 @@ export interface EvaluatorViewResponse {
   contactNo: number;
   evaluatedCarId: string[];
   location: string;
-  createdAt: string;
+  createdAt: Date;
   updatedAt: string;
 }
