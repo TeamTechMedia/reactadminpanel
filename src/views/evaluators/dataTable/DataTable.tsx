@@ -25,6 +25,7 @@ const DataTable = (props: DataTableProps) => {
   });
   const data = evaluators?.data?.data;
   const dataWithId = addKey(data, "id", "_id") || [];
+  const totalEntries = evaluators?.data?.count || 0;
 
   return (
     <>
@@ -49,6 +50,7 @@ const DataTable = (props: DataTableProps) => {
             disableColumnSelector
             columns={columns}
             rows={dataWithId ?? []}
+            rowCount={totalEntries}
             loading={isLoading}
             paginationMode="server"
             paginationModel={params}

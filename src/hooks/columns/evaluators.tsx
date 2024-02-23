@@ -43,7 +43,6 @@ const useColumns = () => {
       headerClassName: "super-app-theme--header",
       renderCell: ({ row }: CellType) => {
         const { userId } = row;
-        console.log(row, "idCheck");
 
         return <ClickableTypography name={userId} />;
       },
