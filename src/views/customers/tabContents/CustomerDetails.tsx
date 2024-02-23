@@ -6,7 +6,6 @@ import {
   TableContainer,
   TableRow,
 } from "@mui/material";
-import React from "react";
 
 const customerData = [
   {
@@ -48,7 +47,7 @@ const CustomerDetails = () => {
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
         <TableBody>
-          {customerData.map((data) => {
+          {customerData?.map((data) => {
             return (
               <TableRow key={data.label}>
                 <TableCell component="th" scope="row">
