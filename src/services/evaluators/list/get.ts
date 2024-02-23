@@ -10,7 +10,7 @@ async function getEvaluators(
   const filterParams = {
     page: params.page + 1,
     limit: params.pageSize,
-    role: params.role,
+    role: "EVALUATOR",
   };
 
   const response = await axiosInstance.get(GET_EVALUATORS_ENDPOINT, {

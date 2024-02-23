@@ -1,1 +1,1 @@
-export const GET_EVALUATORS_ENDPOINT = "users/";
+export const GET_EVALUATORS_ENDPOINT = "users";
