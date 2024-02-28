@@ -18,9 +18,15 @@ export interface EvaluatorViewResponse {
   role: string;
   email: string;
   password: string;
+  originalPassword: string;
   contactNo: number;
-  evaluatedCarId: string[];
+  evaluatedCarId: EvaluatedCarIds[];
   location: string;
   createdAt: Date;
   updatedAt: string;
+}
+
+export interface EvaluatedCarIds {
+  carId: string;
+  uniqueId: string;
 }
