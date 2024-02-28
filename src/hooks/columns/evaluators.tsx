@@ -29,7 +29,12 @@ function getStatusColor(status: StatusType) {
   return statusColor[status] as "success" | "error";
 }
 
-const useColumns = () => {
+interface ColProps {
+  handleAction: (isBlock: boolean, id: string) => void;
+}
+
+const useColumns = (props: ColProps) => {
+  const { handleAction } = props;
   const router = useRouter();
   function handleView(id: string) {
     router.push(`/evaluators/${id}`);
@@ -102,8 +107,8 @@ const useColumns = () => {
       minWidth: 30,
       headerName: "Actions",
       renderCell: ({ row }: CellType) => {
-        const { status, id } = row;
-        const block = status === "Blocked";
+        const { id, isBlocked } = row;
+        const block = isBlocked;
         return (
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <ButtonIcon
@@ -115,6 +120,7 @@ const useColumns = () => {
               icon={block ? "tabler:check" : "tabler:x"}
               title={block ? "Approve" : "Block"}
               color={block ? "lime" : "red"}
+              onClick={() => handleAction(block, id)}
             />
           </Box>
         );

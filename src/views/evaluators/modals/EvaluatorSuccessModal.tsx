@@ -23,7 +23,7 @@ const EvaluatorSuccessModal = (props: SuccessModalTypes) => {
       try {
         const body = {
           userId: successMsg.userId,
-          password: successMsg.password,
+          password: successMsg.originalPassword,
         };
         const text = JSON.stringify(body);
         const cleanText = text.replace(/[{}]/g, "");
@@ -47,7 +47,7 @@ const EvaluatorSuccessModal = (props: SuccessModalTypes) => {
           Evaluator added successfully!
         </Typography>
         <Typography>UserId: {successMsg.userId}</Typography>
-        <Typography>Password: {successMsg.password}</Typography>
+        <Typography>Password: {successMsg.originalPassword}</Typography>
         <Grid display={"flex"} justifyContent={"center"} padding={2}>
           <ButtonIcon
             onClick={handleCopy}

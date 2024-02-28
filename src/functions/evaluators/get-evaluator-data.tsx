@@ -35,7 +35,8 @@ export const getEvaluatorData = (data: EvaluatorViewResponse | undefined) => {
       },
       {
         label: "Password",
-        value: data.password,
+        value: data.originalPassword,
+        encrypt: true,
       },
       {
         label: "Created at",
