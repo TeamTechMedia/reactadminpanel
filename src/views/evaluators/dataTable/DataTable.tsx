@@ -5,6 +5,9 @@ import useColumns from "../../../hooks/columns/evaluators";
 import { useGetEvaluators } from "@/services/evaluators/list/get";
 import { EvaluatorsGetParams } from "@/services/evaluators/list/types";
 import { addKey } from "@/utils/add-key";
+import { useUpdateEvaluator } from "@/services/evaluators/update/patch";
+import useCustomToast from "@/utils/toast";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface DataTableProps {
   handleAdd: () => void;
@@ -16,8 +19,14 @@ const DataTable = (props: DataTableProps) => {
     page: 0,
     pageSize: 10,
   });
+  const toast = useCustomToast();
+  const queryClient = useQueryClient();
 
-  const columns = useColumns();
+  const columns = useColumns({
+    handleAction,
+  });
+
+  const update = useUpdateEvaluator();
 
   const { data: evaluators, isLoading } = useGetEvaluators({
     params,
@@ -25,6 +34,27 @@ const DataTable = (props: DataTableProps) => {
   const data = evaluators?.data?.data;
   const dataWithId = addKey(data, "id", "_id") || [];
   const totalEntries = evaluators?.data?.count || 0;
+
+  function handleAction(isBlock: boolean, id: string) {
+    const blockValue = !isBlock;
+    update.mutate(
+      {
+        body: { isBlocked: blockValue },
+        id,
+      },
+      {
+        onSuccess: () => {
+          const successMessage = blockValue
+            ? "Evaluator Blocked Successfully"
+            : "Evaluator Approved Successfully";
+          toast.success(successMessage);
+          queryClient.invalidateQueries({
+            queryKey: ["evaluators"],
+          });
+        },
+      },
+    );
+  }
 
   return (
     <>
@@ -50,7 +80,7 @@ const DataTable = (props: DataTableProps) => {
             columns={columns}
             rows={dataWithId ?? []}
             rowCount={totalEntries}
-            loading={isLoading}
+            loading={isLoading || update.isPending}
             paginationMode="server"
             paginationModel={params}
             onPaginationModelChange={setParams}
