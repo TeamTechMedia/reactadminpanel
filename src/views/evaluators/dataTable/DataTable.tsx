@@ -25,9 +25,6 @@ const DataTable = (props: DataTableProps) => {
   const columns = useColumns({
     handleAction,
   });
-  const [open, setOpen] = useState(false);
-  const [openSuccess, setOpenSuccess] = useState(false);
-  const [successMsg, setSuccessMsg] = useState({});
 
   const update = useUpdateEvaluator();
 
