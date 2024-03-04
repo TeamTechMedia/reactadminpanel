@@ -11,6 +11,7 @@ import { CarData } from "@/services/cars/list/types";
 import { useGetCarReport } from "@/services/cars/report/get";
 import CarExterior from "@/views/cars/tabContents/CarExterior";
 import { tabs } from "@/data/cars/tabs";
+import CarEngine from "@/views/cars/tabContents/CarEngine";
 
 const CarsView = () => {
   const [value, setValue] = useState(tabs[0].value);
@@ -33,6 +34,7 @@ const CarsView = () => {
     car_details: <CarDetails details={carData} />,
     documents: <CarDocuments />,
     exterior: <CarExterior details={carReportsData} />,
+    engine: <CarEngine details={carReportsData} />,
   };
 
   if (isLoading) {

@@ -10,6 +10,12 @@ interface Meta {
   refresh: string;
 }
 
+export interface CarReportDataType {
+  label: string;
+  value?: string | undefined;
+  url?: string;
+}
+
 export interface CarReportData {
   _id: string;
   allCarInfo: AllCarInfo;
@@ -29,63 +35,83 @@ export interface CarReportData {
 export interface AllCarInfo {
   engineCylinder: number;
   evaluationStatusForEngine: string;
+  battery: StartVideo;
   createdAt: string;
   updatedAt: string;
+  StartVideo: StartVideo;
+  blowBy: StartVideo;
+  clutch: StartVideo;
+  coolant: string;
+  engine: StartVideo;
+  engineComment: string;
+  engineCompartment: EngineCompartment;
+  engineOil: StartVideo;
+  engineSound: string;
+  exhaustSmoke: string;
+  gearBox: StartVideo;
+  gearBoxLeakage: string;
+  mount: StartVideo;
+  radiator: string;
+  silencer: string;
+  startVideo: StartVideo;
+  startingMotor: string;
+  sump: StartVideo;
+  turboCharger: StartVideo;
   evaluationStatusForExterior: string;
-  apronLeft: LeftImage;
-  apronRight: LeftImage;
-  bonnetPatti: LeftImage;
-  boot: LeftImage;
-  bumperFront: LeftImage;
-  bumperRear: LeftImage;
-  chassisExtension: LeftImage;
-  cowlTop: LeftImage;
-  dickyDoor: LeftImage;
-  doorFrontLeft: LeftImage;
-  doorFrontRight: LeftImage;
-  doorGlassLeft: LeftImage;
-  doorGlassRight: LeftImage;
-  doorRearLeft: LeftImage;
-  doorRearRight: LeftImage;
-  fenderLeft: LeftImage;
-  fenderRight: LeftImage;
-  firewall: LeftImage;
-  frontTyreLeft: FrontTyreLeft;
-  frontTyreRight: FrontTyreLeft;
-  frontWindShield: LeftImage;
-  fuelLid: LeftImage;
+  apronLeft: StartVideo;
+  apronRight: StartVideo;
+  bonnetPatti: StartVideo;
+  boot: StartVideo;
+  bumperFront: StartVideo;
+  bumperRear: StartVideo;
+  chassisExtension: StartVideo;
+  cowlTop: StartVideo;
+  dickyDoor: StartVideo;
+  doorFrontLeft: StartVideo;
+  doorFrontRight: StartVideo;
+  doorGlassLeft: StartVideo;
+  doorGlassRight: StartVideo;
+  doorRearLeft: StartVideo;
+  doorRearRight: StartVideo;
+  fenderLeft: StartVideo;
+  fenderRight: StartVideo;
+  firewall: StartVideo;
+  frontTyreLeft: StartVideo;
+  frontTyreRight: StartVideo;
+  frontWindShield: StartVideo;
+  fuelLid: StartVideo;
   fullBodyRepaint: string;
-  grill: LeftImage;
-  headLightLeft: LeftImage;
-  headLightRight: LeftImage;
-  headLightSupport: LeftImage;
+  grill: StartVideo;
+  headLightLeft: StartVideo;
+  headLightRight: StartVideo;
+  headLightSupport: StartVideo;
   jackAndTool: string;
-  leftApillar: LeftImage;
-  leftBpillar: LeftImage;
-  leftCpillar: LeftImage;
-  leftImage: LeftImage;
-  lowerCrossMember: LeftImage;
+  leftApillar: StartVideo;
+  leftBpillar: StartVideo;
+  leftCpillar: StartVideo;
+  leftImage: EngineCompartment;
+  lowerCrossMember: StartVideo;
   missingParts: string;
-  quarterGlass: LeftImage;
-  quarterPanelLeft: LeftImage;
-  quarterPanelRight: LeftImage;
-  rearTyreLeft: FrontTyreLeft;
-  rearTyreRight: FrontTyreLeft;
-  rearViewMirrorLeft: LeftImage;
-  rearViewMirrorRight: LeftImage;
-  rearWindShield: LeftImage;
-  rearWiper: LeftImage;
-  rightApillar: LeftImage;
-  rightBpillar: LeftImage;
-  rightCpillar: LeftImage;
-  rightImage: LeftImage;
-  roof: LeftImage;
-  runnningBorderLeft: LeftImage;
-  runnningBorderRight: LeftImage;
-  spareWheel: LeftImage;
-  tailLightLeft: LeftImage;
-  tailLightRight: LeftImage;
-  upperCrossMember: LeftImage;
+  quarterGlass: StartVideo;
+  quarterPanelLeft: StartVideo;
+  quarterPanelRight: StartVideo;
+  rearTyreLeft: StartVideo;
+  rearTyreRight: StartVideo;
+  rearViewMirrorLeft: StartVideo;
+  rearViewMirrorRight: StartVideo;
+  rearWindShield: StartVideo;
+  rearWiper: StartVideo;
+  rightApillar: StartVideo;
+  rightBpillar: StartVideo;
+  rightCpillar: StartVideo;
+  rightImage: EngineCompartment;
+  roof: StartVideo;
+  runnningBorderLeft: StartVideo;
+  runnningBorderRight: StartVideo;
+  spareWheel: StartVideo;
+  tailLightLeft: StartVideo;
+  tailLightRight: StartVideo;
+  upperCrossMember: StartVideo;
   handBreak: string[];
   evaluationStatusForInterior: string;
   steeringWheel: string[];
@@ -97,23 +123,22 @@ export interface AllCarInfo {
   airCooling: string[];
   acCondensor: string[];
   evaluationStatusForAc: string;
-  carElectrical: FrontTyreLeft;
+  carElectrical: StartVideo;
   clusterPanel: ClusterPanel;
-  cngKitImage: LeftImage;
   combitionSwitch: string;
   dashboardCondition: string;
-  dashboardImage: FrontTyreLeft;
+  dashboardImage: StartVideo;
   dashboardSwitch: string;
-  frontSeatImage: FrontTyreLeft;
-  interiorView: LeftImage;
+  frontSeatImage: StartVideo;
+  interiorView: EngineCompartment;
   key: string;
-  platformImage: FrontTyreLeft;
-  powerWindowCentalLock: ClusterPanel;
-  powerWindowDriverImage: LeftImage;
+  platformImage: StartVideo;
+  powerWindowCentalLock: StartVideo;
+  powerWindowDriverImage: EngineCompartment;
   pushButton: string;
-  pushWindowDriverImage: LeftImage;
-  rearSeatImage: FrontTyreLeft;
-  rearViewMirror: ClusterPanel;
+  pushWindowDriverImage: EngineCompartment;
+  rearSeatImage: StartVideo;
+  rearViewMirror: StartVideo;
   secondKey: string;
   warningDetails: string;
   brakes: string;
@@ -124,27 +149,25 @@ export interface AllCarInfo {
   steeringMountedAudioControl: string;
   steeringSystem: string;
   transmissionManual: string;
+  anyInteriorModifications: string;
+  fogLamps: string;
+  gpsNavigation: string;
+  rearDefogger: string;
+  rearParkingSensor: string;
+  seatBelt: string;
+  stereoBrand: string;
+  stereoImage: StartVideo;
   acBlowerGrill: string;
   acFilterDamaged: string;
   acWorking: string;
   climateControl: string;
   heater: string;
-  rearDefogger: string;
   carCondition: string;
   specialComments: string;
-  absEbd: ClusterPanel;
-  airbag: ClusterPanel;
-  alloyWheels: ClusterPanel;
-  anyInteriorModifications: string;
-  fogLamps: string;
-  gloveBox: ClusterPanel;
-  gpsNavigation: string;
-  keylessEntry: ClusterPanel;
-  rearParkingSensor: string;
-  seatBelt: string;
-  stereoBrand: string;
-  stereoImage: FrontTyreLeft;
-  sunroof: ClusterPanel;
+  engineStar: number;
+  exteriorStar: number;
+  interiorAndElectricalStar: number;
+  testDriveStar: number;
   uniqueId: number;
   make: string;
   model: string;
@@ -157,12 +180,12 @@ export interface AllCarInfo {
   highestBid: number;
   totalBidder: number;
   status: string;
-  front: FrontTyreLeft;
-  frontLeft: FrontTyreLeft;
-  frontRight: FrontTyreLeft;
-  rear: FrontTyreLeft;
-  rearLeft: FrontTyreLeft;
-  rearRight: FrontTyreLeft;
+  front: StartVideo;
+  frontLeft: StartVideo;
+  frontRight: StartVideo;
+  rear: StartVideo;
+  rearLeft: StartVideo;
+  rearRight: StartVideo;
 }
 
 interface ClusterPanel {
@@ -171,16 +194,20 @@ interface ClusterPanel {
   condition: string[];
 }
 
-interface LeftImage {
+interface StartVideo {
+  name: string;
+  url: string;
+  condition: string[];
+  remarks: string;
+}
+
+interface EngineCompartment {
   name: string;
   url: string;
   condition: any[];
   remarks: string;
 }
 
-interface FrontTyreLeft {
-  name: string;
-  url: string;
+interface StartVideo {
   condition: string[];
-  remarks: string;
 }
