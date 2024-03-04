@@ -8,7 +8,7 @@ type ThemeConfig = {
 };
 
 const themeConfig: ThemeConfig = {
-  name: "KeraCars",
+  name: "MeraCars",
   navigationSize: 208,
   afterVerticalNavMenuContentPosition: "fixed",
   beforeVerticalNavMenuContentPosition: "fixed",

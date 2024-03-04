@@ -88,6 +88,7 @@ export interface CarData {
   status: string;
   createdAt: string;
   updatedAt: string;
+  vehicleLocation: string;
 }
 
 export interface CarParams {

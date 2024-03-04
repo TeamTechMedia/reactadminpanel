@@ -53,6 +53,10 @@ const getCarData = (details: CarData) => {
       label: "Status",
       value: details.status,
     },
+    {
+      label: "Vehicle Location",
+      value: details.vehicleLocation,
+    },
   ];
 };
 
