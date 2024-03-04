@@ -12,6 +12,10 @@ export const tabs = [
     value: "exterior",
   },
   {
+    label: "Engine",
+    value: "engine",
+  },
+  {
     label: "Interior & Electrical",
     value: "interior",
   },
