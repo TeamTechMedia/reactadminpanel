@@ -10,6 +10,8 @@ interface FileTileProps {
   handleEdit?: (file: DocumentsType) => void;
 }
 
+export const videoFormats = ["mp4", "wmv"];
+
 export const FileTile = (fileTileProps: FileTileProps) => {
   const { file, handleEdit } = fileTileProps;
   const [isHovered, setIsHovered] = useState(false);
@@ -26,7 +28,7 @@ export const FileTile = (fileTileProps: FileTileProps) => {
     linkElement.target = "_blank";
     linkElement.click();
   }
-
+  const isVideo = videoFormats.includes(file.downloadLink.slice(-3));
   return (
     <Box onMouseEnter={handleHover} onMouseLeave={handleHover}>
       <Grid
@@ -36,7 +38,7 @@ export const FileTile = (fileTileProps: FileTileProps) => {
       >
         <Image
           loading="lazy"
-          src={file.thumbnail || fileThumbnail}
+          src={isVideo ? fileThumbnail : file.thumbnail || fileThumbnail}
           alt={"file"}
           width={100}
           height={100}
