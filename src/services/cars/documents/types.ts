@@ -13,6 +13,7 @@ interface Meta {
 export interface CarDocs {
   taxValidity: string;
   rcAvailability: string;
+  ncb: string;
   bankName: string;
   form35: string;
   hypothecation: string;
@@ -24,7 +25,7 @@ export interface CarDocs {
   interStateTransfer: string;
   loanNoc: string;
   loanStatus: string;
-  ncb: string;
+  ncbPercentage: string;
   rcMismatch: string;
   remarks: string;
   rcFront: RcFront;

@@ -18,7 +18,16 @@ export interface CarReportDataType {
 
 export interface CarReportData {
   _id: string;
+  engineNumber: string;
+  isCarRegistered: string;
+  cngKitImage: string;
+  sellerName: string;
+  regValidity: string;
+  sellerAddress: string;
+  sellerMobileNumber: string;
   allCarInfo: AllCarInfo;
+  rcOwnerMobileNumber: string;
+  rcOwnerName: string;
   chasisNumber: string;
   monthAndYearOfManufacture: string;
   regDate: string;
@@ -35,7 +44,12 @@ export interface CarReportData {
 export interface AllCarInfo {
   engineCylinder: number;
   evaluationStatusForEngine: string;
+  airbag: StartVideo;
+  absEbd: StartVideo;
+  alloyWheels: string[];
+  cngKitImage: StartVideo;
   battery: StartVideo;
+  sunroof: string[];
   createdAt: string;
   updatedAt: string;
   StartVideo: StartVideo;
@@ -50,6 +64,8 @@ export interface AllCarInfo {
   exhaustSmoke: string;
   gearBox: StartVideo;
   gearBoxLeakage: string;
+  gloveBox: StartVideo;
+  keylessEntry: StartVideo;
   mount: StartVideo;
   radiator: string;
   silencer: string;

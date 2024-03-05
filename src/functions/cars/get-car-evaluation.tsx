@@ -1,48 +1,50 @@
-const getCarEvaluation = () => {
+import { CarReportData } from "@/services/cars/report/types";
+
+const getCarEvaluation = (data: CarReportData) => {
   const evaluation = [
     {
       label: "Seller Name",
-      value: "Seller Name",
+      value: data?.sellerName,
     },
     {
       label: "Seller Address",
-      value: "Seller Address",
+      value: data?.sellerAddress,
     },
     {
       label: "Seller Phone Number",
-      value: "Seller Phone Number",
+      value: data?.sellerMobileNumber,
     },
     {
       label: "Registered",
-      value: "Registered",
+      value: data?.isCarRegistered,
     },
     {
       label: "Registration Number",
-      value: "Registration Number",
+      value: data?.regNumber,
     },
     {
       label: "Engine Number",
-      value: "Engine Number",
+      value: data?.engineNumber,
     },
     {
       label: "Chassis Number",
-      value: "Chassis Number",
+      value: data?.chasisNumber,
     },
     {
       label: "RC Owner Name",
-      value: "RC Owner Name",
+      value: data?.rcOwnerName,
     },
     {
       label: "RC Owner Phone Number",
-      value: "RC Owner Phone Number",
+      value: data?.rcOwnerMobileNumber,
     },
     {
       label: "Date of Registration",
-      value: "Date of Registration",
+      value: data?.regDate,
     },
     {
       label: "Registration Validity",
-      value: "Registration Validity",
+      value: data?.regValidity,
     },
     {
       label: "Tax Validity",
@@ -50,11 +52,11 @@ const getCarEvaluation = () => {
     },
     {
       label: "Fuel",
-      value: "Fuel",
+      value: data?.allCarInfo?.fuelType,
     },
     {
       label: "Ownership Number",
-      value: "Ownership Number",
+      value: data?.allCarInfo?.ownershipNumber,
     },
     {
       label: "Registration State",
@@ -66,7 +68,7 @@ const getCarEvaluation = () => {
     },
     {
       label: "Vehicle Location",
-      value: "Vehicle Location",
+      value: data?.allCarInfo?.vehicleLocation,
     },
     {
       label: "Engine CC",
@@ -74,7 +76,7 @@ const getCarEvaluation = () => {
     },
     {
       label: "Number of Cylinders",
-      value: "Number of Cylinders",
+      value: data?.allCarInfo?.engineCylinder,
     },
     {
       label: "Vehicle Usage",
@@ -82,27 +84,27 @@ const getCarEvaluation = () => {
     },
     {
       label: "Month & Year of Manufacturing",
-      value: "Month & Year of Manufacturing",
+      value: data?.monthAndYearOfManufacture,
     },
     {
       label: "Car Maker's Name (Brand)",
-      value: "Car Maker's Name (Brand)",
+      value: data?.allCarInfo?.make,
     },
     {
       label: "Car Model Name",
-      value: "Car Model Name",
+      value: data?.allCarInfo?.model,
     },
     {
       label: "Car Variant",
-      value: "Car Variant",
+      value: data?.allCarInfo?.variant,
     },
     {
       label: "Colour",
-      value: "Colour",
+      value: data?.color,
     },
     {
       label: "Body Type",
-      value: "Body Type",
+      value: data?.bodyType,
     },
     {
       label: "Seating Capacity",
@@ -114,7 +116,7 @@ const getCarEvaluation = () => {
     },
     {
       label: "RC Availability",
-      value: "RC Availability",
+      value: data?.rcAvailability,
     },
     {
       label: "Transmission",
@@ -122,7 +124,7 @@ const getCarEvaluation = () => {
     },
     {
       label: "Customer Price",
-      value: "Customer Price",
+      value: data?.customerPrice,
     },
     {
       label: "Odometer Working",
@@ -130,7 +132,7 @@ const getCarEvaluation = () => {
     },
     {
       label: "Odometer Reading",
-      value: "Odometer Reading",
+      value: data?.odometerReading,
     },
     {
       label: "Accidental",

@@ -6,23 +6,26 @@ import CarDocsCard from "./CarDocsCard";
 import { getCarDocuments } from "@/functions/cars/get-car-documents";
 import getCarDocData from "@/functions/cars/get-car-doc-data";
 import getCarEvaluation from "@/functions/cars/get-car-evaluation";
+import { CarReportData } from "@/services/cars/report/types";
 
-const CarDocuments = () => {
+interface CarDocsProps {
+  details?: CarReportData;
+}
+
+const CarDocuments = (props: CarDocsProps) => {
+  const { details } = props;
   const router = useRouter();
   const id = router.query.id;
   const { data: carDocsData, isFetched } = useGetCarDocs(id as string);
   const carDocs = carDocsData?.data.data;
   const docData = getCarDocuments(carDocs);
   const { documents } = getCarDocData(carDocs);
-  const { evaluation } = getCarEvaluation();
+  const { evaluation } = getCarEvaluation(details as any);
 
   return (
     <Grid display={"flex"} flexDirection={"column"} gap={2}>
-      {/* Basic Car Details  */}
       <CarEvaluation data={evaluation} title="Evaluation" />
-      {/* Document Details  */}
       <CarEvaluation data={documents} title="Documents" />
-      {/* Documents  */}
       {isFetched && <CarDocsCard documents={docData} />}
     </Grid>
   );

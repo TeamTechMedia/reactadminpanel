@@ -1,7 +1,6 @@
 import { AllCarInfo } from "@/services/cars/report/types";
 
 const getCarInteriorData = (allCarInfo: AllCarInfo) => {
-  console.log(allCarInfo);
   const interiorObj = {
     "Cluster panel": {
       condition: allCarInfo?.clusterPanel?.condition,
@@ -57,7 +56,11 @@ const getCarInteriorData = (allCarInfo: AllCarInfo) => {
       url: allCarInfo?.carElectrical?.url,
       remarks: allCarInfo?.carElectrical?.remarks,
     },
-    "CNG/LPG Kit Image": "",
+    "CNG/LPG Kit Image": {
+      condition: allCarInfo?.cngKitImage?.condition,
+      url: allCarInfo?.cngKitImage?.url,
+      remarks: allCarInfo?.cngKitImage?.remarks,
+    },
     "Second Key": allCarInfo?.secondKey,
     Platform: {
       condition: allCarInfo?.platformImage?.condition,

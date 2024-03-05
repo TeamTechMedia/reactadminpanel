@@ -29,6 +29,7 @@ const formatCarData = (
           fieldValue[otherIndex] = value.remarks;
         }
       }
+
       arr.push({
         label: key,
         value: fieldValue,
@@ -36,6 +37,10 @@ const formatCarData = (
       });
     } else {
       fieldValue = value;
+      arr.push({
+        label: key,
+        value: fieldValue,
+      });
     }
   }
 };

@@ -8,7 +8,7 @@ const getCarDocData = (data?: CarDocs) => {
     insuranceMismatch,
     insuranceValidity,
     interStateTransfer,
-    ncb,
+    ncbPercentage,
     hypothecation,
     bankName,
     loanNoc,
@@ -16,6 +16,7 @@ const getCarDocData = (data?: CarDocs) => {
     form35,
     rcMismatch,
     remarks,
+    ncb,
   } = data || {};
   const documents = [
     {
@@ -44,7 +45,7 @@ const getCarDocData = (data?: CarDocs) => {
     },
     {
       label: "NCB Percentage",
-      value: "-",
+      value: ncbPercentage,
     },
     {
       label: "Under Hypothecation",
