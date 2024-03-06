@@ -48,7 +48,7 @@ const getCarEvaluation = (data: CarReportData) => {
     },
     {
       label: "Tax Validity",
-      value: "Tax Validity",
+      value: data?.taxValidity,
     },
     {
       label: "Fuel",
@@ -60,11 +60,11 @@ const getCarEvaluation = (data: CarReportData) => {
     },
     {
       label: "Registration State",
-      value: "Registration State",
+      value: data?.regState,
     },
     {
       label: "RTO",
-      value: "RTO",
+      value: data?.rto,
     },
     {
       label: "Vehicle Location",
@@ -72,7 +72,7 @@ const getCarEvaluation = (data: CarReportData) => {
     },
     {
       label: "Engine CC",
-      value: "Engine CC",
+      value: data?.engineCC,
     },
     {
       label: "Number of Cylinders",
@@ -80,7 +80,7 @@ const getCarEvaluation = (data: CarReportData) => {
     },
     {
       label: "Vehicle Usage",
-      value: "Vehicle Usage",
+      value: data?.vehicleUsage,
     },
     {
       label: "Month & Year of Manufacturing",
@@ -108,11 +108,11 @@ const getCarEvaluation = (data: CarReportData) => {
     },
     {
       label: "Seating Capacity",
-      value: "Seating Capacity",
+      value: data?.seats,
     },
     {
       label: "Duplicate Key",
-      value: "Duplicate Key",
+      value: data?.duplicateKey,
     },
     {
       label: "RC Availability",
@@ -128,7 +128,7 @@ const getCarEvaluation = (data: CarReportData) => {
     },
     {
       label: "Odometer Working",
-      value: "Odometer Working",
+      value: data?.odometerWorking,
     },
     {
       label: "Odometer Reading",
@@ -136,19 +136,19 @@ const getCarEvaluation = (data: CarReportData) => {
     },
     {
       label: "Accidental",
-      value: "Accidental",
+      value: data?.accidential,
     },
     {
       label: "OEM Warranty",
-      value: "OEM Warranty",
+      value: data?.oemWarrantyRemain,
     },
     {
       label: "Number of OEM Months Remaining",
-      value: "Number of OEM Months Remaining",
+      value: data?.oemMonthRemain,
     },
     {
       label: "Number of OEM Kms Remaining",
-      value: "Number of OEM Kms Remaining",
+      value: data?.oemKmRemain,
     },
     {
       label: "Remarks",

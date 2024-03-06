@@ -19,8 +19,17 @@ export interface CarReportDataType {
 export interface CarReportData {
   _id: string;
   engineNumber: string;
+  duplicateKey: string;
+  oemWarrantyRemain: string;
+  accidential: string;
+  oemMonthRemain: string;
+  seats: string;
+  oemKmRemain: string;
+  taxValidity: string;
   isCarRegistered: string;
+  odometerWorking: string;
   cngKitImage: string;
+  engineCC: string;
   sellerName: string;
   regValidity: string;
   sellerAddress: string;
@@ -31,13 +40,16 @@ export interface CarReportData {
   chasisNumber: string;
   monthAndYearOfManufacture: string;
   regDate: string;
+  rto: string;
   bodyType: string;
   color: string;
   odometerReading: number;
   rcAvailability: string;
   insurance: string;
+  vehicleUsage: string;
   form35: string;
   regNumber: string;
+  regState: string;
   customerPrice: string;
 }
 
@@ -208,6 +220,7 @@ interface ClusterPanel {
   name: string;
   url: string;
   condition: string[];
+  remarks?: string;
 }
 
 interface StartVideo {
