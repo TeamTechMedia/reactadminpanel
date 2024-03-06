@@ -14,6 +14,8 @@ import { tabs } from "@/data/cars/tabs";
 import CarEngine from "@/views/cars/tabContents/CarEngine";
 import CarInterior from "@/views/cars/tabContents/CarInterior";
 import CarOther from "@/views/cars/tabContents/CarOther";
+import { ButtonIcon } from "@/components/ui/buttons/ButtonIcon";
+import generateCarPdf from "@/functions/cars/export/generate-pdf";
 
 const CarsView = () => {
   const [value, setValue] = useState(tabs[0].value);
@@ -25,13 +27,6 @@ const CarsView = () => {
   const { data: carReports } = useGetCarReport(id as string);
   const carReportsData = carReports?.data.data;
 
-  function handleNext() {
-    const currIndex = tabs.findIndex((tab) => tab.value === value);
-    if (currIndex === -1 || currIndex === tabs.length - 1) return;
-    const nextTabValue = tabs[currIndex + 1].value;
-    setValue(nextTabValue);
-  }
-
   const tabComponents = {
     car_details: <CarDetails details={carData} />,
     documents: <CarDocuments details={carReportsData} />,
@@ -40,6 +35,17 @@ const CarsView = () => {
     interior: <CarInterior details={carReportsData} />,
     others: <CarOther details={carReportsData} />,
   };
+
+  function handleNext() {
+    const currIndex = tabs.findIndex((tab) => tab.value === value);
+    if (currIndex === -1 || currIndex === tabs.length - 1) return;
+    const nextTabValue = tabs[currIndex + 1].value;
+    setValue(nextTabValue);
+  }
+
+  function handleDownload() {
+    generateCarPdf();
+  }
 
   if (isLoading) {
     return <FallbackSpinner />;
@@ -51,8 +57,15 @@ const CarsView = () => {
     return (
       <>
         <Grid>
-          <Grid paddingY={4}>
+          <Grid paddingY={4} display={"flex"} justifyContent={"space-between"}>
             <TabList tabOptions={tabs} value={value} setValue={setValue} />
+            <Grid>
+              <ButtonIcon
+                icon="tabler:download"
+                onClick={handleDownload}
+                title="Export as PDF"
+              />
+            </Grid>
           </Grid>
           <Grid mt={1}>{tabComponents[value as CarTabTypes]}</Grid>
           <Grid mt={4} display={"flex"} gap={3}>
