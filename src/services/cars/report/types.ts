@@ -19,8 +19,10 @@ export interface CarReportDataType {
 export interface CarReportData {
   _id: string;
   engineNumber: string;
+  evaluationRemarks: string;
   duplicateKey: string;
   oemWarrantyRemain: string;
+  transmission: string;
   accidential: string;
   oemMonthRemain: string;
   seats: string;
@@ -85,6 +87,7 @@ export interface AllCarInfo {
   startingMotor: string;
   sump: StartVideo;
   turboCharger: StartVideo;
+  transmission: string;
   evaluationStatusForExterior: string;
   apronLeft: StartVideo;
   apronRight: StartVideo;

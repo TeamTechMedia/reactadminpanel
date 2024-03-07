@@ -120,7 +120,7 @@ const getCarEvaluation = (data: CarReportData) => {
     },
     {
       label: "Transmission",
-      value: "Transmission",
+      value: data?.allCarInfo?.transmission,
     },
     {
       label: "Customer Price",
@@ -152,7 +152,7 @@ const getCarEvaluation = (data: CarReportData) => {
     },
     {
       label: "Remarks",
-      value: "Remarks",
+      value: data?.evaluationRemarks,
     },
   ];
 

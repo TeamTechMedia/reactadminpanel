@@ -15,5 +15,6 @@ export const useGetCarDocs = (id: string) => {
     queryKey: ["car-docs", id],
     queryFn: () => getCarDocs(id),
     enabled: !!id,
+    staleTime: Infinity,
   });
 };
