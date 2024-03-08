@@ -47,9 +47,11 @@ const useColumns = (props: ColProps) => {
       headerName: "Evaluator ID",
       headerClassName: "super-app-theme--header",
       renderCell: ({ row }: CellType) => {
-        const { userId } = row;
+        const { userId, id } = row;
 
-        return <ClickableTypography name={userId} />;
+        return (
+          <ClickableTypography name={userId} onClick={() => handleView(id)} />
+        );
       },
     },
     {
@@ -58,9 +60,11 @@ const useColumns = (props: ColProps) => {
       minWidth: 120,
       headerName: "Evaluator Name",
       renderCell: ({ row }: CellType) => {
-        const { fullname } = row;
+        const { fullname, id } = row;
 
-        return <ClickableTypography name={fullname} />;
+        return (
+          <ClickableTypography name={fullname} onClick={() => handleView(id)} />
+        );
       },
     },
     {
