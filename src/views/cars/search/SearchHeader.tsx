@@ -45,7 +45,7 @@ const SearchHeaders = (props: SearchHeaderProps) => {
           fillWhite
         />
       </Grid>
-      <Grid display={"flex"} gap={2} item xl={4} md={2} xs={4}>
+      <Grid display={"flex"} gap={2} item xl={2} md={2} xs={4}>
         <SelectFormField
           control={control}
           id="status"
