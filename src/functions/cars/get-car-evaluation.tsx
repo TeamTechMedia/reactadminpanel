@@ -3,6 +3,10 @@ import { CarReportData } from "@/services/cars/report/types";
 const getCarEvaluation = (data: CarReportData) => {
   const evaluation = [
     {
+      label: "Evaluator Name",
+      value: data?.evaluatorName,
+    },
+    {
       label: "Seller Name",
       value: data?.sellerName,
     },

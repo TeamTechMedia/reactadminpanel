@@ -20,6 +20,7 @@ export interface CarReportData {
   _id: string;
   engineNumber: string;
   evaluationRemarks: string;
+  evaluatorName: string;
   duplicateKey: string;
   oemWarrantyRemain: string;
   transmission: string;
