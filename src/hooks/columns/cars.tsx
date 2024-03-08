@@ -3,6 +3,7 @@ import { ClickableTypography } from "@/components/ui/containers/ClickableTypogra
 import IconifyIcon from "@/components/ui/icon";
 import { QCStatusType, getQCColor } from "@/functions/cars/get-qc-color";
 import { capitaliseFirstLetter } from "@/utils/capitalise-firstletter";
+import { formatDate } from "@/utils/format-date";
 import { Box, Chip, IconButton, Tooltip, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 
@@ -13,6 +14,7 @@ type RowType = {
   qcStatus: QCStatusType;
   auction: AuctionStatusType;
   fuelType: FuelType;
+  createdAt: Date;
 };
 
 type CellType = {
@@ -41,6 +43,17 @@ const useColumns = () => {
         return (
           <ClickableTypography name={uniqueId} onClick={() => handleView(id)} />
         );
+      },
+    },
+    {
+      flex: 0.03,
+      field: "date",
+      minWidth: 120,
+      headerName: "Date",
+      renderCell: ({ row }: CellType) => {
+        const { createdAt } = row;
+
+        return <Typography noWrap>{formatDate(createdAt)}</Typography>;
       },
     },
     {
