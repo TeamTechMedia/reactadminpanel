@@ -55,7 +55,11 @@ const CarsView = () => {
   }
 
   function handleDownload() {
-    generateCarPdf(carReportsData, carData, carDocs);
+    generateCarPdf("download", carReportsData, carData, carDocs);
+  }
+
+  function handleOpen() {
+    generateCarPdf("print", carReportsData, carData, carDocs);
   }
 
   if (isLoading) {
@@ -71,6 +75,11 @@ const CarsView = () => {
           <Grid paddingY={4} display={"flex"} justifyContent={"space-between"}>
             <TabList tabOptions={tabs} value={value} setValue={setValue} />
             <Grid>
+              <ButtonIcon
+                icon="tabler:printer"
+                onClick={handleOpen}
+                title="Print as PDF"
+              />
               <ButtonIcon
                 icon="tabler:download"
                 onClick={handleDownload}

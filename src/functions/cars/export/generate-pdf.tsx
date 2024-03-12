@@ -27,6 +27,7 @@ pdfMake.fonts = {
 };
 
 const generateCarPdf = async (
+  action: "download" | "print",
   carReportsData?: CarReportData,
   carData?: CarData,
   carDocs?: CarDocs,
@@ -102,6 +103,15 @@ const generateCarPdf = async (
       bold: true,
     },
   };
-  return pdfMake.createPdf(dd as any).open();
+
+  if (carData) {
+    if (action === "download") {
+      return pdfMake
+        .createPdf(dd as any)
+        .download(`MeraCars - ${carData?.make + carData?.model}`);
+    }
+
+    return pdfMake.createPdf(dd as any).open();
+  }
 };
 export default generateCarPdf;
