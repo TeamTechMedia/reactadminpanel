@@ -1,13 +1,20 @@
 import { CarReportData } from "@/services/cars/report/types";
+import { PdfColors } from "@/types/cars/pdf";
 import { formatArrayString } from "@/utils/format-array-string";
 import { formatString } from "@/utils/format-string";
 
-export function getEngineTransmissionMore(carReportsData?: CarReportData) {
+export function getEngineTransmissionMore(
+  carReportsData?: CarReportData,
+  colors?: PdfColors,
+) {
   const allCarInfo = carReportsData?.allCarInfo;
   return [
     {
       text: "Engine & Transmission",
       margin: [0, 20, 0, 5],
+      decoration: "underline",
+      decorationStyle: "dashed",
+      decorationColor: colors?.header,
     },
     {
       style: "carDetailTable",

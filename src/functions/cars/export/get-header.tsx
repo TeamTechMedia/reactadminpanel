@@ -1,6 +1,13 @@
+import { CarData } from "@/services/cars/list/types";
+import { CarReportData } from "@/services/cars/report/types";
 import { PdfColors } from "@/types/cars/pdf";
+import { formatDate } from "@/utils/format-date";
 
-const getHeader = (colors: PdfColors) => {
+const getHeader = (
+  colors: PdfColors,
+  carReportsData?: CarReportData,
+  carData?: CarData,
+) => {
   return [
     {
       canvas: [
@@ -42,15 +49,15 @@ const getHeader = (colors: PdfColors) => {
       absolutePosition: { x: 463, y: 12 },
     },
     {
-      text: `By  aswin@teamtechmedia.com`,
+      text: `By ${carReportsData?.evaluatorName}`,
       absolutePosition: { x: 480, y: 23 },
       fontSize: 8,
       color: colors.white,
       align: "right",
     },
     {
-      text: `07 Mar 2024`,
-      absolutePosition: { x: 550, y: 35 },
+      text: `On ${formatDate(carData?.createdAt as any)}`,
+      absolutePosition: { x: 480, y: 35 },
       fontSize: 8,
       color: colors.white,
       align: "right",

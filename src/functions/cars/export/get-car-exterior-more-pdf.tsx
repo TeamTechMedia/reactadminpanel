@@ -1,13 +1,20 @@
 import { CarReportData } from "@/services/cars/report/types";
+import { PdfColors } from "@/types/cars/pdf";
 import { formatArrayString } from "@/utils/format-array-string";
 import { formatString } from "@/utils/format-string";
 
-export function getCarExteriorTyreMore(carReportsData?: CarReportData) {
+export function getCarExteriorTyreMore(
+  carReportsData?: CarReportData,
+  colors?: PdfColors,
+) {
   const allCarInfo = carReportsData?.allCarInfo;
   return [
     {
       text: "Exterior & Tyre",
-      margin: [0, 60, 0, 5],
+      margin: [0, 90, 0, 5],
+      decoration: "underline",
+      decorationStyle: "dashed",
+      decorationColor: colors?.header,
     },
     {
       style: "carDetailTable",

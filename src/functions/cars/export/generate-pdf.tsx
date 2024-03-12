@@ -32,15 +32,18 @@ const generateCarPdf = async (
   carDocs?: CarDocs,
 ) => {
   const colors = getPdfColors();
-  const header = getHeader(colors);
+  const header = getHeader(colors, carReportsData, carData);
   const footer = getFooter();
   const basicCar = getCarBasic(colors, carData, carReportsData, carDocs);
-  const carDetails = getCarDetails(carReportsData, carDocs);
-  const carExterior = getCarExteriorTyre(carReportsData);
-  const carExteriorMore = getCarExteriorTyreMore(carReportsData);
-  const engineTransmission = getEngineTransmission(carReportsData);
-  const engineTransmissionMore = getEngineTransmissionMore(carReportsData);
-  const steeringBrakesAC = getSteeringBrakesAC(carReportsData);
+  const carDetails = getCarDetails(carReportsData, carDocs, colors);
+  const carExterior = getCarExteriorTyre(carReportsData, colors);
+  const carExteriorMore = getCarExteriorTyreMore(carReportsData, colors);
+  const engineTransmission = getEngineTransmission(carReportsData, colors);
+  const engineTransmissionMore = getEngineTransmissionMore(
+    carReportsData,
+    colors,
+  );
+  const steeringBrakesAC = getSteeringBrakesAC(carReportsData, colors);
   // For Images
   const { engineImgs, exteriorImgs, interiorImgs } =
     getCarsImagesPdf(carReportsData);
@@ -99,8 +102,6 @@ const generateCarPdf = async (
       bold: true,
     },
   };
-
   return pdfMake.createPdf(dd as any).open();
 };
-
 export default generateCarPdf;

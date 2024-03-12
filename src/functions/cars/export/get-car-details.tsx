@@ -1,13 +1,20 @@
 import { CarDocs } from "@/services/cars/documents/types";
 import { CarReportData } from "@/services/cars/report/types";
+import { PdfColors } from "@/types/cars/pdf";
 import { formatString } from "@/utils/format-string";
 
-const getCarDetails = (carReportsData?: CarReportData, carDocs?: CarDocs) => {
-  console.log(carDocs, "carReportsData");
+const getCarDetails = (
+  carReportsData?: CarReportData,
+  carDocs?: CarDocs,
+  colors?: PdfColors,
+) => {
   return [
     {
       text: "Car Details",
       margin: [0, 20, 0, 5],
+      decoration: "underline",
+      decorationStyle: "dashed",
+      decorationColor: colors?.header,
     },
     {
       style: "carDetailTable",
@@ -55,16 +62,8 @@ const getCarDetails = (carReportsData?: CarReportData, carDocs?: CarDocs) => {
             { text: formatString(carReportsData?.rto), alignment: "right" },
           ],
           [
-            { text: "RTO NOC Issued", alignment: "left" },
-            { text: "RTO NOC Issued", alignment: "right" },
-          ],
-          [
             { text: "Under Hypothecation", alignment: "left" },
             { text: formatString(carDocs?.hypothecation), alignment: "right" },
-          ],
-          [
-            { text: "CNG/LPG Fitment In RC", alignment: "left" },
-            { text: "CNG/LPG Fitment In RC", alignment: "right" },
           ],
           [
             {

@@ -1,12 +1,19 @@
 import { CarReportData } from "@/services/cars/report/types";
+import { PdfColors } from "@/types/cars/pdf";
 import { formatArrayString } from "@/utils/format-array-string";
 
-export function getCarExteriorTyre(carReportsData?: CarReportData) {
+export function getCarExteriorTyre(
+  carReportsData?: CarReportData,
+  colors?: PdfColors,
+) {
   const allCarInfo = carReportsData?.allCarInfo;
   return [
     {
       text: "Exterior & Tyre",
       margin: [0, 20, 0, 5],
+      decoration: "underline",
+      decorationStyle: "dashed",
+      decorationColor: colors?.header,
     },
     {
       style: "carDetailTable",
@@ -16,8 +23,8 @@ export function getCarExteriorTyre(carReportsData?: CarReportData) {
         body: [
           [
             { text: "Part", alignment: "left", fontSize: 14 },
-            { text: "Subpart", alignment: "center", fontSize: 14 },
-            { text: "Condition", alignment: "right", fontSize: 14 },
+            { text: "Subpart", alignment: "left", fontSize: 14 },
+            { text: "Condition", alignment: "left", fontSize: 14 },
           ],
           [
             { rowSpan: 2, text: "Bumper", alignment: "left" },
@@ -31,7 +38,6 @@ export function getCarExteriorTyre(carReportsData?: CarReportData) {
             "Back Bumber",
             formatArrayString(allCarInfo?.bumperRear?.condition),
           ],
-          [{ text: "Hood", alignment: "left" }, { text: "" }, { text: "Hood" }],
           [
             { text: "Roof", alignment: "left" },
             { text: "" },
