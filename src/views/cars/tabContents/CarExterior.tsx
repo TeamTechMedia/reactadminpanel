@@ -13,7 +13,7 @@ interface CarExteriorProps {
 const CarExterior = (props: CarExteriorProps) => {
   const { details } = props;
   if (details) {
-    const { exterior } = getCarExterior(details);
+    const { exterior }: any = getCarExterior(details);
     const documents = filterDocuments(exterior);
     return (
       <Grid display={"flex"} flexDirection={"column"} gap={3}>

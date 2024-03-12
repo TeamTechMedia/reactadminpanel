@@ -19,38 +19,43 @@ interface CarDetailProps {
 
 const CarDetails = (props: CarDetailProps) => {
   const { details } = props;
-  const carData = getCarData(details);
 
-  return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-        <TableBody>
-          {carData.map((data) => {
-            return (
-              <TableRow key={data.label}>
-                <TableCell component="th" scope="row">
-                  {data.label}
-                </TableCell>
-                <TableCell>
-                  {data.isChip ? (
-                    <Chip
-                      variant="outlined"
-                      color={
-                        getQCColor(data.value as QCStatusType) as ChipColorType
-                      }
-                      label={data.value}
-                    />
-                  ) : (
-                    data.value
-                  )}
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
+  if (details) {
+    const carData = getCarData(details);
+
+    return (
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+          <TableBody>
+            {carData.map((data) => {
+              return (
+                <TableRow key={data.label}>
+                  <TableCell component="th" scope="row">
+                    {data.label}
+                  </TableCell>
+                  <TableCell>
+                    {data.isChip ? (
+                      <Chip
+                        variant="outlined"
+                        color={
+                          getQCColor(
+                            data.value as QCStatusType,
+                          ) as ChipColorType
+                        }
+                        label={data.value}
+                      />
+                    ) : (
+                      data.value
+                    )}
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    );
+  }
 };
 
 export default CarDetails;

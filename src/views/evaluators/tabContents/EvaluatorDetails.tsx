@@ -68,7 +68,7 @@ const EncryptedCells = ({ data }: { data: any }) => {
 
   return (
     <TableCell sx={{ display: "flex", alignItems: "center" }}>
-      <Typography>{show ? (data.value as any) : "********"}</Typography>
+      <Typography>{show ? (data.value as any) : "########"}</Typography>
       <Grid ml={2}>
         <ButtonIcon
           onClick={handleEncrypted}

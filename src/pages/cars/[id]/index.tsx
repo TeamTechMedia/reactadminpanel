@@ -16,6 +16,7 @@ import CarInterior from "@/views/cars/tabContents/CarInterior";
 import CarOther from "@/views/cars/tabContents/CarOther";
 import { ButtonIcon } from "@/components/ui/buttons/ButtonIcon";
 import generateCarPdf from "@/functions/cars/export/generate-pdf";
+import { useGetCarDocs } from "@/services/cars/documents/get";
 
 const CarsView = () => {
   const [value, setValue] = useState(tabs[0].value);
@@ -23,13 +24,23 @@ const CarsView = () => {
   const id = router.query.id;
   const { data: car, isLoading, isFetched } = useGetCar(id as string);
   const carData = car?.data?.data?.[0] as CarData;
+  const { data: carDocsData, isFetched: isDocFetched } = useGetCarDocs(
+    id as string,
+  );
+  const carDocs = carDocsData?.data.data;
 
   const { data: carReports } = useGetCarReport(id as string);
   const carReportsData = carReports?.data.data;
 
   const tabComponents = {
     car_details: <CarDetails details={carData} />,
-    documents: <CarDocuments details={carReportsData} />,
+    documents: (
+      <CarDocuments
+        details={carReportsData}
+        carDocs={carDocs}
+        isFetched={isDocFetched}
+      />
+    ),
     exterior: <CarExterior details={carReportsData} />,
     engine: <CarEngine details={carReportsData} />,
     interior: <CarInterior details={carReportsData} />,
@@ -44,7 +55,7 @@ const CarsView = () => {
   }
 
   function handleDownload() {
-    generateCarPdf();
+    generateCarPdf(carReportsData, carData, carDocs);
   }
 
   if (isLoading) {
