@@ -157,25 +157,26 @@ export function getCarExteriorTyreMore(
             formatArrayString(allCarInfo?.alloyWheels),
           ],
           [
-            { text: "LHS front" },
-            "",
-            formatArrayString(allCarInfo?.frontLeft?.condition),
+            { text: "Tyre", rowSpan: 4 },
+            "LH Front",
+            formatArrayString(allCarInfo?.frontTyreLeft?.condition),
           ],
           [
-            { text: "RHS front" },
             "",
-            formatArrayString(allCarInfo?.frontRight?.condition),
+            "RH Front",
+            formatArrayString(allCarInfo?.frontTyreRight?.condition),
           ],
           [
-            { text: "LHS rear" },
             "",
-            formatArrayString(allCarInfo?.rearLeft?.condition),
+            "LH Rear",
+            formatArrayString(allCarInfo?.rearTyreLeft?.condition),
           ],
           [
-            { text: "RHS rear" },
             "",
-            formatArrayString(allCarInfo?.rearRight?.condition),
+            "RH Rear",
+            formatArrayString(allCarInfo?.rearTyreRight?.condition),
           ],
+
           [
             { text: "Spare tyre" },
             "",

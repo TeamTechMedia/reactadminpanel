@@ -28,14 +28,14 @@ export function getCarExteriorTyre(
           ],
           [
             { rowSpan: 2, text: "Bumper", alignment: "left" },
-            { text: "Front Bumber" },
+            { text: "Front Bumper" },
             {
               text: formatArrayString(allCarInfo?.bumperFront?.condition),
             },
           ],
           [
             "",
-            "Back Bumber",
+            "Back Bumper",
             formatArrayString(allCarInfo?.bumperRear?.condition),
           ],
           [

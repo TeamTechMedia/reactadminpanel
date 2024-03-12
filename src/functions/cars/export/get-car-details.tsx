@@ -1,4 +1,5 @@
 import { CarDocs } from "@/services/cars/documents/types";
+import { CarData } from "@/services/cars/list/types";
 import { CarReportData } from "@/services/cars/report/types";
 import { PdfColors } from "@/types/cars/pdf";
 import { formatString } from "@/utils/format-string";
@@ -7,6 +8,7 @@ const getCarDetails = (
   carReportsData?: CarReportData,
   carDocs?: CarDocs,
   colors?: PdfColors,
+  carData?: CarData,
 ) => {
   return [
     {
@@ -24,7 +26,7 @@ const getCarDetails = (
           [
             { text: "Registration Number", alignment: "left" },
             {
-              text: formatString(carReportsData?.regNumber),
+              text: formatString(carData?.maskedRegNumber),
               alignment: "right",
             },
           ],
