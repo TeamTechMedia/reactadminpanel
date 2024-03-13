@@ -1,6 +1,7 @@
 import { CarData } from "@/services/cars/list/types";
 import { capitaliseFirstLetter } from "@/utils/capitalise-firstletter";
 import { numberToINR } from "@/utils/convert-to-rs";
+import { formatDateAndTime } from "@/utils/format-date-and-time";
 
 const getCarData = (details: CarData) => {
   return [
@@ -56,6 +57,10 @@ const getCarData = (details: CarData) => {
     {
       label: "Vehicle Location",
       value: details.vehicleLocation,
+    },
+    {
+      label: "Evaluated On",
+      value: formatDateAndTime(details.createdAt),
     },
   ];
 };

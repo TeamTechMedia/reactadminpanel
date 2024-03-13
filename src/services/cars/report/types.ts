@@ -51,6 +51,7 @@ export interface CarReportData {
   insurance: string;
   vehicleUsage: string;
   form35: string;
+  userId: string;
   regNumber: string;
   regState: string;
   customerPrice: string;

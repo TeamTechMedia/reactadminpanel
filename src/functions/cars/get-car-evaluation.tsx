@@ -7,6 +7,10 @@ const getCarEvaluation = (data: CarReportData) => {
       value: data?.evaluatorName,
     },
     {
+      label: "Evaluator Id",
+      value: data?.userId,
+    },
+    {
       label: "Seller Name",
       value: data?.sellerName,
     },

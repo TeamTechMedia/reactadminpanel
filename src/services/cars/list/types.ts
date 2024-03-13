@@ -86,7 +86,7 @@ export interface CarData {
   highestBid: number;
   totalBidder: number;
   status: string;
-  createdAt: string;
+  createdAt: Date;
   updatedAt: string;
   vehicleLocation: string;
 }
