@@ -34,7 +34,7 @@ const DataTable = () => {
           columnHeaderHeight={55}
           disableRowSelectionOnClick
           disableColumnSelector
-          columns={columns ?? []}
+          columns={(columns as any) ?? []}
           loading={isLoading}
           rows={(cars as any) ?? []}
           rowCount={carsData?.data.count ?? 0}

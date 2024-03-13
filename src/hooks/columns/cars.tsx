@@ -3,7 +3,7 @@ import { ClickableTypography } from "@/components/ui/containers/ClickableTypogra
 import IconifyIcon from "@/components/ui/icon";
 import { QCStatusType, getQCColor } from "@/functions/cars/get-qc-color";
 import { capitaliseFirstLetter } from "@/utils/capitalise-firstletter";
-import { formatDate } from "@/utils/format-date";
+import { formatDateAndTime } from "@/utils/format-date-and-time";
 import { Box, Chip, IconButton, Tooltip, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 
@@ -49,11 +49,15 @@ const useColumns = () => {
       flex: 0.03,
       field: "date",
       minWidth: 120,
-      headerName: "Date",
+      headerName: "Evaluated On",
+      valueGetter: (params: RowType) => {
+        const { createdAt } = params;
+        return formatDateAndTime(createdAt);
+      },
       renderCell: ({ row }: CellType) => {
         const { createdAt } = row;
 
-        return <Typography noWrap>{formatDate(createdAt)}</Typography>;
+        return <Typography noWrap>{formatDateAndTime(createdAt)}</Typography>;
       },
     },
     {
