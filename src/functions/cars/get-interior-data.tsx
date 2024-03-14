@@ -4,8 +4,8 @@ const getCarInteriorData = (allCarInfo: AllCarInfo) => {
   const interiorObj = {
     "Cluster panel": {
       condition: allCarInfo?.clusterPanel?.condition,
-      url: allCarInfo?.front?.url,
-      remarks: allCarInfo?.front?.remarks,
+      url: allCarInfo?.clusterPanel?.url,
+      remarks: allCarInfo?.clusterPanel?.remarks,
     },
     "If Warning light yes, Warning details": allCarInfo?.warningDetails,
     "Dashboard Image": {

@@ -95,3 +95,8 @@ export interface CarParams {
   pageSize: number;
   page: number;
 }
+
+export interface CarDataSearchParams {
+  lastFourDigits?: string;
+  createdAt?: Date;
+}
