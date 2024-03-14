@@ -25,7 +25,7 @@ const formatCarData = (
 
       if (Array.isArray(value.condition) && value.condition.includes("other")) {
         const otherIndex = value.condition.indexOf("other");
-        if (otherIndex !== -1 && value.remarks) {
+        if (otherIndex && otherIndex !== -1 && value.remarks) {
           fieldValue[otherIndex] = value.remarks;
         }
       }

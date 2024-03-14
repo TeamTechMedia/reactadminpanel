@@ -41,6 +41,10 @@ export const getCarBasic = (
                 valign: "center",
                 align: "center",
               },
+              error: function (error: string) {
+                console.error("Error loading image:", error);
+                return { text: "No IMAGE", alignment: "center" };
+              },
             },
             {
               stack: [

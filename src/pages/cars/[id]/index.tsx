@@ -68,6 +68,7 @@ const CarsView = () => {
 
   if (isFetched) {
     const showNext = tabs[tabs.length - 1].value !== value;
+    const isPending = carData?.status === "PENDING_EVALUATION";
 
     return (
       <>
@@ -79,11 +80,13 @@ const CarsView = () => {
                 icon="tabler:printer"
                 onClick={handleOpen}
                 title="Print as PDF"
+                disabled={isPending}
               />
               <ButtonIcon
                 icon="tabler:download"
                 onClick={handleDownload}
                 title="Export as PDF"
+                disabled={isPending}
               />
             </Grid>
           </Grid>

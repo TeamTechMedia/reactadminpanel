@@ -1,5 +1,7 @@
 const filterArray = (arr: string[]) => {
-  return arr.filter((item) => item !== "");
+  if (Array.isArray(arr)) {
+    return arr.filter((item) => item !== "");
+  } else return [];
 };
 
 export default filterArray;
