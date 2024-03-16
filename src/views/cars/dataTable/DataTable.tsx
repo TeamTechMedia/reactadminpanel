@@ -12,13 +12,15 @@ import { useSearchCars } from "@/services/cars/list/post";
 
 interface CarDataTableProps {
   control: Control<CarDataSearchParams>;
-  postQueryParams: { search: string; createdAt?: Date };
+  postQueryParams: { search: string; createdAt?: Date | null };
 }
 
 const DataTable = (carDataTableProps: CarDataTableProps) => {
   const { postQueryParams } = carDataTableProps;
-  const { search } = postQueryParams;
-  const isSearch = Boolean(search) && search !== "";
+  const { search, createdAt } = postQueryParams;
+  const isPost =
+    (Boolean(search) && search !== "") ||
+    (Boolean(createdAt) && createdAt !== null);
   const columns = useColumns({
     handleSort,
   });
@@ -40,6 +42,7 @@ const DataTable = (carDataTableProps: CarDataTableProps) => {
     search,
     setCarPostData,
     postSearch,
+    date: createdAt,
   });
 
   function handleSort() {
@@ -65,8 +68,8 @@ const DataTable = (carDataTableProps: CarDataTableProps) => {
           disableColumnSelector
           columns={(columns as any) ?? []}
           loading={isLoading || postSearch.isPending}
-          rows={isSearch ? carsPostData : (cars as any) ?? []}
-          rowCount={carsData?.data.count ?? 0}
+          rows={isPost ? carsPostData : (cars as any) ?? []}
+          rowCount={isPost ? carPostData.length : carsData?.data.count ?? 0}
           paginationMode="server"
           paginationModel={params}
           onPaginationModelChange={setParams}

@@ -6,6 +6,7 @@ import { SetStateAction, useDeferredValue, useEffect } from "react";
 interface PostSearchCars {
   search: string;
   setCarPostData: React.Dispatch<SetStateAction<CarData[]>>;
+  date?: Date | null;
   postSearch: UseMutationResult<
     AxiosResponse<any, any>,
     Error,
@@ -15,14 +16,17 @@ interface PostSearchCars {
 }
 
 const usePostSearchCars = (props: PostSearchCars) => {
-  const { search, setCarPostData, postSearch } = props;
+  const { search, setCarPostData, postSearch, date } = props;
   const deferredSearch = useDeferredValue<string>(search);
-
   useEffect(() => {
-    if (deferredSearch !== undefined && search) {
+    if (
+      (deferredSearch !== undefined && search) ||
+      (date !== undefined && date)
+    ) {
       postSearch.mutate(
         {
-          lastFourDigits: deferredSearch,
+          ...(deferredSearch && { lastFourDigits: deferredSearch }),
+          createdAt: date,
         },
         {
           onSuccess: (res: { data: { data: CarData[] } }) => {
@@ -31,7 +35,7 @@ const usePostSearchCars = (props: PostSearchCars) => {
         },
       );
     }
-  }, [deferredSearch]);
+  }, [deferredSearch, date]);
 };
 
 export default usePostSearchCars;

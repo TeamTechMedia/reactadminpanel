@@ -1,11 +1,13 @@
 import { Grid, MenuItem } from "@mui/material";
-import React from "react";
+import React, { SetStateAction } from "react";
 import TextFormField from "../../../components/ui/inputfields/TextFormField";
 import SelectFormField from "../../../components/ui/inputfields/SelectField";
 import { Control } from "react-hook-form";
+import DatePickerForm from "@/components/ui/inputfields/DatePicker";
 
 interface SearchHeaderProps {
   control: Control<any>;
+  setDate: React.Dispatch<SetStateAction<Date | null>>;
 }
 
 const statusData = [
@@ -28,7 +30,7 @@ function renderItem(obj: { id: string; name: string }) {
 }
 
 const SearchHeaders = (props: SearchHeaderProps) => {
-  const { control } = props;
+  const { control, setDate } = props;
   return (
     <Grid
       container
@@ -36,13 +38,20 @@ const SearchHeaders = (props: SearchHeaderProps) => {
       justifyContent={"space-between"}
       paddingY={4}
     >
-      <Grid item xl={4}>
+      <Grid display={"flex"} item xl={6} gap={3}>
         <TextFormField
           control={control}
           id="search"
           label="Search"
           placeholder="Input Search Text"
           fillWhite
+        />
+        <DatePickerForm
+          control={control}
+          id="createdAt"
+          label="Date"
+          maxDate={new Date()}
+          handleChange={(e) => setDate(e)}
         />
       </Grid>
       <Grid display={"flex"} gap={2} item xl={2} md={2} xs={4}>

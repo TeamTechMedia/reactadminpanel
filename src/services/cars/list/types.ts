@@ -99,5 +99,5 @@ export interface CarParams {
 
 export interface CarDataSearchParams {
   lastFourDigits?: string;
-  createdAt?: Date;
+  createdAt?: Date | null;
 }
