@@ -1,9 +1,9 @@
-export type QCStatusType = "PENDING" | "Rejected";
+export type QCStatusType = "PENDING" | "Rejected" | "VERIFIED";
 
 export const qcStatus = {
   PENDING: "warning",
   Rejected: "error",
-  APPROVED: "success",
+  VERIFIED: "success",
 };
 
 export function getQCColor(qcStat: QCStatusType) {

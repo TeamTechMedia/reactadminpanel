@@ -17,6 +17,8 @@ import AuthGuard from "@/components/auth/AuthGuard";
 import Spinner from "../components/ui/spinner/fallback";
 import UserLayout from "@/layouts/components/UserLayout";
 import GuestGuard from "@/components/auth/GuestGuard";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 
 interface ExtraNextPageParams {
   authGuard: boolean;
@@ -72,12 +74,14 @@ export default function App({ Component, pageProps }: ExtendedAppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
-        <FontWrapper>
-          <Guard authGuard={authGuard} guestGuard={guestGuard}>
-            {getLayout(<Component {...pageProps} />)}
-          </Guard>
-          <Toaster />
-        </FontWrapper>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <FontWrapper>
+            <Guard authGuard={authGuard} guestGuard={guestGuard}>
+              {getLayout(<Component {...pageProps} />)}
+            </Guard>
+            <Toaster />
+          </FontWrapper>
+        </LocalizationProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );

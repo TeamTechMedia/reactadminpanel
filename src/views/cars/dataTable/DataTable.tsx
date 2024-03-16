@@ -1,13 +1,14 @@
 import { Card, CardHeader, Grid } from "@mui/material";
-import React, { useDeferredValue, useEffect, useState } from "react";
+import { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import useColumns from "../../../hooks/columns/cars";
 import { useGetCars } from "@/services/cars/list/get";
 import { filterObjects } from "@/utils/filter-objects";
 import { addKey } from "@/utils/add-key";
 import { Control } from "react-hook-form";
+import { CarData, CarDataSearchParams } from "@/services/cars/list/types";
+import usePostSearchCars from "@/hooks/actions/cars/post-search";
 import { useSearchCars } from "@/services/cars/list/post";
-import { CarDataSearchParams } from "@/services/cars/list/types";
 
 interface CarDataTableProps {
   control: Control<CarDataSearchParams>;
@@ -18,12 +19,14 @@ const DataTable = (carDataTableProps: CarDataTableProps) => {
   const { postQueryParams } = carDataTableProps;
   const { search } = postQueryParams;
   const isSearch = Boolean(search) && search !== "";
-  const columns = useColumns();
+  const columns = useColumns({
+    handleSort,
+  });
   const [params, setParams] = useState({
     page: 0,
     pageSize: 10,
   });
-  const [carPostData, setCarPostData] = useState([]);
+  const [carPostData, setCarPostData] = useState<CarData[]>([]);
   const { data: carsData, isLoading } = useGetCars({
     params,
   });
@@ -33,22 +36,18 @@ const DataTable = (carDataTableProps: CarDataTableProps) => {
   const carsPostData = addKey(carPostData, "id", "_id");
 
   const postSearch = useSearchCars();
-  const deferredSearch = useDeferredValue<string>(search);
+  usePostSearchCars({
+    search,
+    setCarPostData,
+    postSearch,
+  });
 
-  useEffect(() => {
-    if (deferredSearch !== undefined && search) {
-      postSearch.mutate(
-        {
-          lastFourDigits: deferredSearch,
-        },
-        {
-          onSuccess: (res) => {
-            setCarPostData(res.data.data);
-          },
-        },
-      );
-    }
-  }, [deferredSearch]);
+  function handleSort() {
+    setParams(() => ({
+      ...params,
+      sortKey: "createdAt",
+    }));
+  }
 
   return (
     <Card>
