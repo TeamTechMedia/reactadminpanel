@@ -7,6 +7,7 @@ async function getCars(params: CarParams) {
   const filterParams = {
     page: params.page + 1,
     limit: params.pageSize,
+    sortKey: params.sortKey,
   };
 
   const response = await axiosInstance.get(GET_CARS_ENDPOINT, {
@@ -16,11 +17,7 @@ async function getCars(params: CarParams) {
   return response;
 }
 
-export const useGetCars = ({
-  params,
-}: {
-  params: { pageSize: number; page: number };
-}) => {
+export const useGetCars = ({ params }: { params: CarParams }) => {
   return useQuery({
     queryKey: ["cars", params],
     queryFn: () => getCars(params),

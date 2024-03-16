@@ -25,7 +25,12 @@ type FuelType = "Petrol" | "Diesel" | "Hybrid";
 
 type AuctionStatusType = "Pending" | "Rejected";
 
-const useColumns = () => {
+interface CarColProps {
+  handleSort: () => void;
+}
+
+const useColumns = (props: CarColProps) => {
+  const { handleSort } = props;
   const router = useRouter();
   function handleView(id: string) {
     router.push(`/cars/${id}`);
@@ -59,6 +64,7 @@ const useColumns = () => {
 
         return <Typography noWrap>{formatDateAndTime(createdAt)}</Typography>;
       },
+      sortComparator: () => handleSort(),
     },
     {
       flex: 0.03,
@@ -100,21 +106,6 @@ const useColumns = () => {
         );
       },
     },
-    // {
-    //   flex: 0.026,
-    //   field: "auction",
-    //   minWidth: 50,
-    //   headerName: "Auction Status",
-    //   renderCell: ({ row }: CellType) => {
-    //     return (
-    //       <Chip
-    //         label={row.auction}
-    //         variant="outlined"
-    //         color={getAuctionColor(row.auction) as any}
-    //       />
-    //     );
-    //   },
-    // },
     {
       flex: 0.02,
       field: "action",

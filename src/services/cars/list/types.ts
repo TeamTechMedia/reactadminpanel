@@ -94,6 +94,7 @@ export interface CarData {
 export interface CarParams {
   pageSize: number;
   page: number;
+  sortKey?: string;
 }
 
 export interface CarDataSearchParams {

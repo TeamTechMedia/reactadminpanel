@@ -1,5 +1,5 @@
 import TabList from "@/components/ui/tabs/TabList";
-import { Button, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import { useState } from "react";
 import { CarTabTypes } from "@/types/cars/car";
 import CarDetails from "../../../views/cars/tabContents/CarDetails";
@@ -17,11 +17,17 @@ import CarOther from "@/views/cars/tabContents/CarOther";
 import { ButtonIcon } from "@/components/ui/buttons/ButtonIcon";
 import generateCarPdf from "@/functions/cars/export/generate-pdf";
 import { useGetCarDocs } from "@/services/cars/documents/get";
+import useCustomToast from "@/utils/toast";
+import { useQueryClient } from "@tanstack/react-query";
+import AuctionDialogue from "@/views/cars/dailogue/AuctionDialogue";
+import useUpdateCarById from "@/hooks/actions/cars/update-car";
+import CarViewBottomActions from "@/views/cars/actions/CarViewBottomActions";
 
 const CarsView = () => {
   const [value, setValue] = useState(tabs[0].value);
+  const [openApprove, setOpenApprove] = useState(false);
   const router = useRouter();
-  const id = router.query.id;
+  const id = String(router.query.id);
   const { data: car, isLoading, isFetched } = useGetCar(id as string);
   const carData = car?.data?.data?.[0] as CarData;
   const { data: carDocsData, isFetched: isDocFetched } = useGetCarDocs(
@@ -31,6 +37,39 @@ const CarsView = () => {
 
   const { data: carReports } = useGetCarReport(id as string);
   const carReportsData = carReports?.data.data;
+  const toast = useCustomToast();
+  const queryClient = useQueryClient();
+
+  const updateCar = useUpdateCarById();
+
+  function handleApprove() {
+    setOpenApprove(!openApprove);
+  }
+
+  function handleApproveQC() {
+    updateCar({
+      body: {
+        qcStatus: "VERIFIED",
+      },
+      id,
+      handleSuccess: () => handleSuccess("QC Approved Successfully"),
+    });
+  }
+
+  function handleSuccess(successMessage: string) {
+    toast.success(successMessage);
+    queryClient.invalidateQueries({ queryKey: ["cars"] });
+  }
+
+  function handleRejectQC() {
+    updateCar({
+      body: {
+        qcStatus: "REJECTED",
+      },
+      id,
+      handleSuccess: () => handleSuccess("QC Rejected Successfully"),
+    });
+  }
 
   const tabComponents = {
     car_details: <CarDetails details={carData} />,
@@ -69,6 +108,7 @@ const CarsView = () => {
   if (isFetched) {
     const showNext = tabs[tabs.length - 1].value !== value;
     const isPending = carData?.status === "PENDING_EVALUATION";
+    const isVerified = carData?.qcStatus === "VERIFIED";
 
     return (
       <>
@@ -91,23 +131,16 @@ const CarsView = () => {
             </Grid>
           </Grid>
           <Grid mt={1}>{tabComponents[value as CarTabTypes]}</Grid>
-          <Grid mt={4} display={"flex"} gap={3}>
-            {showNext ? (
-              <>
-                <Button variant="contained" onClick={handleNext}>
-                  Next
-                </Button>
-              </>
-            ) : (
-              <>
-                <Button variant="contained">Approve QC</Button>
-                <Button color="error" variant="outlined">
-                  Reject QC
-                </Button>
-              </>
-            )}
-          </Grid>
+          <CarViewBottomActions
+            handleApprove={handleApprove}
+            handleNext={handleNext}
+            handleApproveQC={handleApproveQC}
+            handleRejectQC={handleRejectQC}
+            isVerified={isVerified}
+            showNext={showNext}
+          />
         </Grid>
+        <AuctionDialogue open={openApprove} setOpen={setOpenApprove} />
       </>
     );
   }
