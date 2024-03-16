@@ -8,6 +8,7 @@ import { ApproveCar } from "@/types/cars/approve";
 import { useRouter } from "next/router";
 import useUpdateCarById from "@/hooks/actions/cars/update-car";
 import { useQueryClient } from "@tanstack/react-query";
+import useCustomToast from "@/utils/toast";
 
 interface AuctionDialogueProps {
   open: boolean;
@@ -26,6 +27,7 @@ function AuctionDialogue(props: AuctionDialogueProps) {
   const router = useRouter();
   const approveAuction = useUpdateCarById();
   const queryClient = useQueryClient();
+  const toast = useCustomToast();
   const {
     control,
     formState: { errors },
@@ -39,10 +41,15 @@ function AuctionDialogue(props: AuctionDialogueProps) {
   function onSubmit(val: ApproveCar) {
     const id = String(router.query.id);
     approveAuction({
-      body: { ...val },
+      body: { ...val, status: "SCHEDULED" },
       id,
-      handleSuccess: () =>
-        queryClient.invalidateQueries({ queryKey: ["car", "cars"] }),
+      handleSuccess: () => {
+        toast.success("Auction Approved Successfully!!");
+        setOpen(!open);
+        queryClient.invalidateQueries({
+          queryKey: ["car", "car-reports"],
+        });
+      },
     });
   }
 

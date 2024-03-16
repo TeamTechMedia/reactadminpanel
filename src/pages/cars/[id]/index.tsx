@@ -58,7 +58,7 @@ const CarsView = () => {
 
   function handleSuccess(successMessage: string) {
     toast.success(successMessage);
-    queryClient.invalidateQueries({ queryKey: ["cars"] });
+    queryClient.invalidateQueries({ queryKey: ["car"] });
   }
 
   function handleRejectQC() {

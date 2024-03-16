@@ -10,7 +10,8 @@ function useFormSchema() {
     realValue: yup
       .number()
       .required("Fair Market Value is required")
-      .nonNullable(),
+      .nonNullable()
+      .typeError("Fair Market Value is required"),
   });
 
   return schema;
