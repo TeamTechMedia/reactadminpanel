@@ -37,6 +37,8 @@ const statusLabel: any = {
   PENDING_EVALUATION: "PENDING",
   LIVE: "LIVE",
   SCHEDULED: "SCHEDULED",
+  PROCUREMENT: "PROCUREMENT",
+  OTB: "OTB",
 };
 
 const useColumns = (props: CarColumnProps) => {
@@ -130,7 +132,7 @@ const useColumns = (props: CarColumnProps) => {
       renderCell: ({ row }: CellType) => {
         return (
           <Chip
-            label={statusLabel[row.status] as StatusType}
+            label={(statusLabel[row.status] as StatusType) ?? row.status}
             variant="outlined"
             color={
               getStatusColor(row.status) as "error" | "success" | "warning"

@@ -24,7 +24,6 @@ const DataTable = () => {
   const carWithoutId = carsData?.data?.data;
   const filteredCars = filterObjects(carWithoutId);
   const cars = addKey(filteredCars, "id", "_id");
-  console.log(cars || [], "OTB");
 
   return (
     <Card>
@@ -46,7 +45,7 @@ const DataTable = () => {
           columns={columns}
           rows={cars as any}
           loading={isLoading}
-          rowCount={10}
+          rowCount={carsData?.data.count ?? 0}
           paginationMode="server"
           paginationModel={params}
           onPaginationModelChange={setParams}
