@@ -2,7 +2,6 @@ import { Card, CardHeader, Grid, Theme, useMediaQuery } from "@mui/material";
 import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import useColumns from "../../../hooks/columns/otb";
-import { otb } from "@/dummy/otb";
 import { filterObjects } from "@/utils/filter-objects";
 import { addKey } from "@/utils/add-key";
 import { useGetCars } from "@/services/cars/list/get";
@@ -20,12 +19,12 @@ const DataTable = () => {
   });
 
   const { data: carsData, isLoading } = useGetCars({
-    params,
+    params: { ...params, status: "OTB" },
   });
   const carWithoutId = carsData?.data?.data;
   const filteredCars = filterObjects(carWithoutId);
   const cars = addKey(filteredCars, "id", "_id");
-  console.log(cars);
+  console.log(cars || [], "OTB");
 
   return (
     <Card>
@@ -45,7 +44,7 @@ const DataTable = () => {
           disableRowSelectionOnClick
           disableColumnSelector
           columns={columns}
-          rows={otb as any}
+          rows={cars as any}
           loading={isLoading}
           rowCount={10}
           paginationMode="server"
