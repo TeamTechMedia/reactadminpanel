@@ -6,6 +6,8 @@ export const statusColor: any = {
   PENDING: "warning",
   EVALUATED: "success",
   PENDING_EVALUATION: "warning",
+  PROCUREMENT: "success",
+  OTB: "info",
 };
 
 export function getStatusColor(status: StatusType) {
