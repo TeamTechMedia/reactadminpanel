@@ -98,6 +98,7 @@ export interface CarParams {
   pageSize: number;
   page: number;
   sortKey?: string;
+  status?: string;
 }
 
 export interface CarDataSearchParams {

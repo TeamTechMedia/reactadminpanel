@@ -9,6 +9,7 @@ async function getCars(params: CarParams) {
     limit: params.pageSize,
     sortKey: "createdAt",
     sortValue: -1,
+    ...(params.status !== "" && { status: params.status }),
   };
 
   const response = await axiosInstance.get(GET_CARS_ENDPOINT, {
