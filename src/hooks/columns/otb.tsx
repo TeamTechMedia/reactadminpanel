@@ -1,28 +1,29 @@
-import { ButtonIcon } from "@/components/ui/buttons/ButtonIcon";
 import { ClickableTypography } from "@/components/ui/containers/ClickableTypography";
 import { formatToAmount } from "@/utils/convert-to-rs";
-import { Box, Chip, Typography } from "@mui/material";
+import handleRedirectCars from "@/utils/handle-redirect-car";
+import { Chip, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 
 type RowType = {
   id: string;
+  uniqueId: string;
   customerId: string;
   name: string;
   customer: string;
   phone: number;
   otb: number;
   status: StatusType;
+  model: string;
 };
 
 type CellType = {
   row: RowType;
 };
 
-type StatusType = "Not Contacted" | "Contacted";
+type StatusType = "OTB";
 
 const status = {
-  "Not Contacted": "warning",
-  Contacted: "success",
+  OTB: "success",
 };
 
 function getStatus(value: StatusType) {
@@ -31,6 +32,13 @@ function getStatus(value: StatusType) {
 
 const useColumns = () => {
   const router = useRouter();
+  function handleView(id: string) {
+    handleRedirectCars({
+      id,
+      link: "cars",
+      router,
+    });
+  }
   const columns = [
     {
       flex: 0.012,
@@ -38,9 +46,11 @@ const useColumns = () => {
       minWidth: 110,
       headerName: "Car ID",
       renderCell: ({ row }: CellType) => {
-        const { id } = row;
-
-        return <ClickableTypography name={id} />;
+        const { uniqueId, id } = row;
+        console.log(row, "rowcheck");
+        return (
+          <ClickableTypography name={uniqueId} onClick={() => handleView(id)} />
+        );
       },
     },
     {
@@ -49,30 +59,10 @@ const useColumns = () => {
       minWidth: 120,
       headerName: "Car Name",
       renderCell: ({ row }: CellType) => {
-        const { name } = row;
-
-        return <ClickableTypography name={name} />;
-      },
-    },
-    {
-      flex: 0.03,
-      field: "customerName",
-      minWidth: 120,
-      headerName: "Customer Name",
-      renderCell: ({ row }: CellType) => {
-        const { customer } = row;
-
-        return <ClickableTypography name={customer} />;
-      },
-    },
-    {
-      flex: 0.03,
-      field: "phone",
-      minWidth: 50,
-      headerName: "Phone",
-      renderCell: ({ row }: CellType) => {
-        const { phone } = row;
-        return <Typography noWrap>{phone}</Typography>;
+        const { model, id } = row;
+        return (
+          <ClickableTypography name={model} onClick={() => handleView(id)} />
+        );
       },
     },
     {
@@ -97,24 +87,6 @@ const useColumns = () => {
             variant="outlined"
             color={getStatus(row.status) as any}
           />
-        );
-      },
-    },
-    {
-      flex: 0.02,
-      field: "action",
-      minWidth: 30,
-      headerName: "Actions",
-      renderCell: ({ row }: any) => {
-        const { id } = row;
-        return (
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <ButtonIcon
-              onClick={() => router.push(`/otb/${id}`)}
-              icon="tabler:eye"
-              title="View"
-            />
-          </Box>
         );
       },
     },
