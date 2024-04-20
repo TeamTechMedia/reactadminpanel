@@ -44,17 +44,6 @@ const useColumns = () => {
       },
     },
     {
-      flex: 0.012,
-      field: "customerId",
-      minWidth: 110,
-      headerName: "Customer ID",
-      renderCell: ({ row }: CellType) => {
-        const { customerId } = row;
-
-        return <ClickableTypography name={customerId} />;
-      },
-    },
-    {
       flex: 0.05,
       field: "name",
       minWidth: 120,

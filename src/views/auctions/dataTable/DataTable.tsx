@@ -41,7 +41,7 @@ const DataTable = () => {
           disableColumnSelector
           columns={columns}
           rows={auctionsArray as any}
-          rowCount={10}
+          rowCount={auctions?.data.count ?? 0}
           paginationMode="server"
           paginationModel={params}
           onPaginationModelChange={setParams}

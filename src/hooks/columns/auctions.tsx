@@ -23,14 +23,12 @@ type CellType = {
   row: RowType;
 };
 
-type AuctionStatusType = "Live" | "Completed" | "Scheduled";
+type AuctionStatusType = "LIVE";
 
 type QCStatusType = "Pending" | "Rejected";
 
 const auctionStatus = {
-  Scheduled: "warning",
-  Completed: "info",
-  Live: "success",
+  LIVE: "success",
 };
 
 function getAuctionStat(auctionStat: AuctionStatusType) {
