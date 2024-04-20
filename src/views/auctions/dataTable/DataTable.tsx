@@ -1,8 +1,9 @@
 import { Card, CardHeader, Grid, Theme, useMediaQuery } from "@mui/material";
 import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { auction } from "@/dummy/auction";
 import useColumns from "@/hooks/columns/auctions";
+import { useGetCars } from "@/services/cars/list/get";
+import { addKey } from "@/utils/add-key";
 
 const DataTable = () => {
   const isSmallScreen = useMediaQuery((theme: Theme) =>
@@ -15,6 +16,11 @@ const DataTable = () => {
     page: 0,
     pageSize: 10,
   });
+  const { data: auctions } = useGetCars({
+    params: { ...params, status: "LIVE" },
+  });
+  const auctionData = auctions?.data.data || [];
+  const auctionsArray = addKey(auctionData, "id", "_id");
 
   return (
     <Card>
@@ -34,7 +40,7 @@ const DataTable = () => {
           disableRowSelectionOnClick
           disableColumnSelector
           columns={columns}
-          rows={auction as any}
+          rows={auctionsArray as any}
           rowCount={10}
           paginationMode="server"
           paginationModel={params}
