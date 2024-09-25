@@ -2,12 +2,19 @@ import { axiosInstance } from "@/axios/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
 import { GET_EVALUATORS_ENDPOINT } from "../evaluators/endpoints";
 
+interface ExtraContact {
+  phoneNumber: number;
+  name: string;
+}
+
 interface DealerVerify {
   isDocumentsVerified?: "VERIFIED";
   name?: string;
   businessAddress?: string;
   businessName?: string;
   pincode?: string;
+  extraContactNo?: ExtraContact[];
+  internalNotes?: { note: string; time: Date }[];
 }
 
 interface UpdateDealerProps {

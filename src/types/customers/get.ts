@@ -1,3 +1,5 @@
+import { ContactDealerDetails } from "./types";
+
 export interface DealerObject {
   status: string;
   message: string;
@@ -38,6 +40,8 @@ export interface Dealer {
   shopPicture: AddressProofBack;
   visitingCard: AddressProofBack;
   order_id: string;
+  extraContactNo?: ContactDealerDetails[];
+  internalNotes: { note: string; time: Date }[];
 }
 
 export interface AddressProofBack {

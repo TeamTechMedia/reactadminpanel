@@ -1,8 +1,10 @@
 import CustomDialogue from "@/components/ui/dialogue/AuctionDailogue";
 import { Breakpoint } from "@mui/material";
 import { UpdateCustomerBasic } from "./content/UpdateCustomerBasic";
+import { UpdateContactInfo } from "./content/UpdateContactInfo";
+import { UpdateNotes } from "./content/UpdateNote";
 
-type ModalTypes = "customer_details";
+type ModalTypes = "customer_details" | "contact_info" | "notes";
 
 interface Props {
   type: ModalTypes;
@@ -16,6 +18,16 @@ const data = {
     icon: "tabler:edit",
     maxWidth: "md",
   },
+  contact_info: {
+    title: "Contact Info",
+    icon: "tabler:user",
+    maxWidth: "xs",
+  },
+  notes: {
+    title: "Notes",
+    icon: "tabler:note",
+    maxWidth: "sm",
+  },
 };
 
 export const UpdateDealerModal = (props: Props) => {
@@ -23,6 +35,8 @@ export const UpdateDealerModal = (props: Props) => {
 
   const modals = {
     customer_details: <UpdateCustomerBasic handleClose={handleClose} />,
+    contact_info: <UpdateContactInfo handleClose={handleClose} />,
+    notes: <UpdateNotes handleClose={handleClose} />,
   };
 
   return (
