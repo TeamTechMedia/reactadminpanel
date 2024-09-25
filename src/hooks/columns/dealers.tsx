@@ -13,6 +13,7 @@ interface RowType {
   _id: string;
   id: string;
   fullname: string;
+  businessName: string;
   district: string;
   isDocumentsVerified: DocStatus;
   contactNo: string;
@@ -62,14 +63,14 @@ const useColumns = () => {
       minWidth: 120,
       headerName: "Dealership Name",
       renderCell: ({ row }: { row: RowType }) => {
-        const { fullname, id } = row;
-
+        const { id, businessName } = row;
+        console.log(row, "rowCheck");
         return (
           <ClickableTypography
             onClick={() => {
               handleRedirection("dealers", id, router);
             }}
-            name={fullname}
+            name={businessName ?? "-"}
           />
         );
       },
