@@ -9,7 +9,11 @@ import {
   Typography,
 } from "@mui/material";
 
-export const SecurityDepositPayment = () => {
+export const SecurityDepositPayment = ({
+  isDeposited,
+}: {
+  isDeposited: boolean;
+}) => {
   return (
     <Grid paddingX={3} marginBottom={3}>
       <Grid display={"flex"} gap={3}>
@@ -17,7 +21,10 @@ export const SecurityDepositPayment = () => {
           {" "}
           ₹ 10,000
         </Typography>
-        <PaymentChip title="Unpaid" color="error" />
+        <PaymentChip
+          title={isDeposited ? "Paid" : "Unpaid"}
+          color={isDeposited ? "success" : "error"}
+        />
       </Grid>
       <Grid marginTop={2}>
         <TableContainer component={Grid}>
@@ -43,7 +50,9 @@ export const SecurityDepositPayment = () => {
                     backgroundColor: "ButtonFace",
                   }}
                 >
-                  <Typography variant="body1">Unverified</Typography>{" "}
+                  <Typography variant="body1">
+                    {isDeposited ? "Verified" : "Unverified"}
+                  </Typography>{" "}
                 </TableCell>
               </TableRow>
             </TableBody>
