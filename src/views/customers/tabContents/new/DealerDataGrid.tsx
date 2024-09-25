@@ -6,12 +6,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useContext } from "react";
 
 export const DealerDataGrid = () => {
-  const columns = useColumns({
-    handleView,
-  });
-  function handleView(id: string) {
-    console.log(id, "idCheck");
-  }
+  const columns = useColumns();
   const propParams = useContext<DealerContextType>(DealerContext);
   const { params, setParams, data, isLoading } = propParams as any;
   const dataWithId = addKey(data?.data?.data, "id", "_id") ?? [];

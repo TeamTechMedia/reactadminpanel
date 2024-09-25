@@ -4,6 +4,10 @@ import { GET_EVALUATORS_ENDPOINT } from "../evaluators/endpoints";
 
 interface DealerVerify {
   isDocumentsVerified?: "VERIFIED";
+  name?: string;
+  businessAddress?: string;
+  businessName?: string;
+  pincode?: string;
 }
 
 interface UpdateDealerProps {

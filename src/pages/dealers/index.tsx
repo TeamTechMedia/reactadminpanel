@@ -1,7 +1,7 @@
 import { useGetDealers } from "@/services/dealers/list/get";
 import { DealerDataObj } from "@/services/dealers/list/types";
 import { DealerMetrics } from "@/views/customers/cards/DealerMetrics";
-import { DealerTabs } from "@/views/customers/tabs/DealerTabs";
+import { DealersData } from "@/views/customers/tabContents/new/DealersData";
 import { Grid } from "@mui/material";
 import { AxiosResponse } from "axios";
 import { createContext, SetStateAction, useState } from "react";
@@ -39,7 +39,7 @@ export default function Dealers() {
     <DealerContext.Provider value={dealerContext}>
       <Grid>
         <DealerMetrics />
-        <DealerTabs />
+        <DealersData />
       </Grid>
     </DealerContext.Provider>
   );

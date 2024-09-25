@@ -1,13 +1,13 @@
 import TabList from "@/components/ui/tabs/TabList";
 import { Button, Grid } from "@mui/material";
 import { useState } from "react";
-import CustomerTabs from "../../../views/customers/tabContents/CustomerTabs";
 import { useRouter } from "next/router";
 import { useGetUser } from "@/services/users/get";
 import { disableStatus } from "@/hooks/columns/customers";
 import ConfirmModal from "@/components/ui/modals/ConfirmModal";
 import DealerDocumentVerifyBody from "@/views/customers/modals/DealerDocumentVerifyBody";
 import FallbackSpinner from "@/components/ui/spinner/fallback";
+import CustomerTabs from "@/views/customers/tabContents/CustomerTabs";
 
 const tabs = [
   {
@@ -17,6 +17,14 @@ const tabs = [
   {
     label: "Documents",
     value: "documents",
+  },
+  {
+    label: "Activity",
+    value: "activity",
+  },
+  {
+    label: "Performance",
+    value: "performance",
   },
 ];
 

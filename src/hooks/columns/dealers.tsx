@@ -35,7 +35,7 @@ function getDocumentColor(documentStatus: DocStatus) {
 
 export const disableStatus = ["VERIFIED", "NOTSUBMITTED"];
 
-const useColumns = ({ handleView }: { handleView: (id: string) => void }) => {
+const useColumns = () => {
   const router = useRouter();
   const columns: any = [
     {
@@ -152,7 +152,7 @@ const useColumns = ({ handleView }: { handleView: (id: string) => void }) => {
             <ButtonIcon
               icon="tabler:eye"
               title="View"
-              onClick={() => handleView(id)}
+              onClick={() => router.push(`/dealers/${id}`)}
             />
           </Box>
         );

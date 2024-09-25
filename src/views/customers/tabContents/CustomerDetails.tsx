@@ -16,6 +16,8 @@ import { InternalNotes } from "./new/InternalNotes";
 import { SecurityDeposit } from "./new/SecurityDeposit";
 import { PreferredCars } from "./new/PreferredCars";
 import { AccountInfo } from "./new/AccountInfo";
+import { UpdateDealerModal } from "../modals/UpdateDealerModal";
+import { useState } from "react";
 
 function getCustomerData(data: Dealer) {
   return [
@@ -60,6 +62,10 @@ function getCustomerData(data: Dealer) {
 
 const CustomerDetails = ({ data }: { data: Dealer }) => {
   const customerData = getCustomerData(data);
+  const [open, setOpen] = useState(false);
+  function handleModal() {
+    setOpen(!open);
+  }
   return (
     <>
       <Grid
@@ -71,7 +77,9 @@ const CustomerDetails = ({ data }: { data: Dealer }) => {
         <Typography fontWeight={600} fontSize={18} textAlign={"center"}>
           Customer Details
         </Typography>
-        <Button variant="contained">Edit</Button>
+        <Button variant="contained" onClick={handleModal}>
+          Edit
+        </Button>
       </Grid>
 
       <TableContainer component={Paper}>
@@ -97,6 +105,11 @@ const CustomerDetails = ({ data }: { data: Dealer }) => {
         <PreferredCars />
         <AccountInfo />
       </Grid>
+      <UpdateDealerModal
+        type="customer_details"
+        open={open}
+        handleClose={handleModal}
+      />
     </>
   );
 };

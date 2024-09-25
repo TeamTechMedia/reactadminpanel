@@ -1,4 +1,4 @@
-import { PaymentChip } from "@/components/chips/PaymentChip";
+import { PaymentChip } from "@/components/ui/chips/PaymentChip";
 import {
   Grid,
   Table,
