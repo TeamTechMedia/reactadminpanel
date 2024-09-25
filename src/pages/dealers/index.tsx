@@ -1,30 +1,49 @@
+import { useGetDealers } from "@/services/dealers/list/get";
+import { DealerDataObj } from "@/services/dealers/list/types";
+import { DealerMetrics } from "@/views/customers/cards/DealerMetrics";
+import { DealerTabs } from "@/views/customers/tabs/DealerTabs";
 import { Grid } from "@mui/material";
-import React from "react";
-import SearchHeaders from "../../views/customers/searchHeader/SearchHeaders";
+import { AxiosResponse } from "axios";
+import { createContext, SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
-import DataTable from "../../views/customers/dataTable/DataTable";
 
-const defaultValues = {
-  search: "",
-  status: "",
-};
+export type DealerContextType = {
+  params: { page: number; pageSize: number };
+  setParams: React.Dispatch<SetStateAction<{ page: number; pageSize: number }>>;
+  data?: AxiosResponse<DealerDataObj>;
+  isLoading: boolean;
+} | null;
 
-const Dealers = () => {
-  const { control, watch } = useForm({
-    defaultValues,
+export const DealerContext = createContext<DealerContextType>(null);
+
+export default function Dealers() {
+  const [params, setParams] = useState({
+    page: 0,
+    pageSize: 10,
   });
 
-  const [searchParams] = watch(["search"]);
+  const { control, watch, setValue } = useForm();
+  const [searchBy, search] = watch(["searchBy", "search"]);
+  const { data, isLoading } = useGetDealers({
+    params: {
+      ...params,
+      ...(search && { [searchBy]: search }),
+      page: params.page + 1,
+      limit: params.pageSize,
+    },
+  });
+  const dealerContext =
+    { params, setParams, data, isLoading, control, watch, setValue } || null;
 
   return (
-    <Grid>
-      <SearchHeaders control={control} />
-      <DataTable search={searchParams} />
-    </Grid>
+    <DealerContext.Provider value={dealerContext}>
+      <Grid>
+        <DealerMetrics />
+        <DealerTabs />
+      </Grid>
+    </DealerContext.Provider>
   );
-};
+}
 
 Dealers.authGuard = true;
 Dealers.guestGuard = false;
-
-export default Dealers;

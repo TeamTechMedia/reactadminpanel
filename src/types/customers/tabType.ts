@@ -1,1 +1,1 @@
-export type CustomerTabTypes = "customer_details" | "documents";
+export type CustomerTabTypes = "dealer_details" | "documents";

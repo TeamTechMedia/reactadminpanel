@@ -11,8 +11,8 @@ import FallbackSpinner from "@/components/ui/spinner/fallback";
 
 const tabs = [
   {
-    label: "Customer Details",
-    value: "customer_details",
+    label: "Dealer Details",
+    value: "dealer_details",
   },
   {
     label: "Documents",
