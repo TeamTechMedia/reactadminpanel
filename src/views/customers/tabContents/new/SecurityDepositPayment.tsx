@@ -1,4 +1,5 @@
 import { PaymentChip } from "@/components/ui/chips/PaymentChip";
+import { numberToINR } from "@/utils/convert-to-rs";
 import {
   Grid,
   Table,
@@ -11,15 +12,17 @@ import {
 
 export const SecurityDepositPayment = ({
   isDeposited,
+  amount,
 }: {
   isDeposited: boolean;
+  amount: number;
 }) => {
   return (
     <Grid paddingX={3} marginBottom={3}>
       <Grid display={"flex"} gap={3}>
         <Typography fontWeight={600} fontSize={24}>
           {" "}
-          ₹ 10,000
+          {numberToINR(amount)}
         </Typography>
         <PaymentChip
           title={isDeposited ? "Paid" : "Unpaid"}

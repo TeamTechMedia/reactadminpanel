@@ -15,6 +15,8 @@ interface DealerVerify {
   pincode?: string;
   extraContactNo?: ExtraContact[];
   internalNotes?: { note: string; time: Date }[];
+  isDeposited?: boolean;
+  depositedAmount?: number;
 }
 
 interface UpdateDealerProps {

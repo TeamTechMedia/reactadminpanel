@@ -14,3 +14,7 @@ export type DealerNotes = {
   notes: string;
   time: Date;
 };
+
+export type DealerDeposit = {
+  amount: number;
+};
