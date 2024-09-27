@@ -18,6 +18,7 @@ interface DealerVerify {
   isDeposited?: boolean;
   depositedAmount?: number;
   carNotes?: { model: string }[];
+  isDeactivate?: boolean;
 }
 
 interface UpdateDealerProps {
