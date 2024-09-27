@@ -3,8 +3,9 @@ import { Breakpoint } from "@mui/material";
 import { UpdateCustomerBasic } from "./content/UpdateCustomerBasic";
 import { UpdateContactInfo } from "./content/UpdateContactInfo";
 import { UpdateNotes } from "./content/UpdateNote";
+import { UpdateCarNotes } from "./content/UpdateCarNotes";
 
-type ModalTypes = "customer_details" | "contact_info" | "notes";
+type ModalTypes = "customer_details" | "contact_info" | "notes" | "car_models";
 
 interface Props {
   type: ModalTypes;
@@ -28,6 +29,11 @@ const data = {
     icon: "tabler:note",
     maxWidth: "sm",
   },
+  car_models: {
+    title: "Preferred Car Models",
+    icon: "tabler:car",
+    maxWidth: "sm",
+  },
 };
 
 export const UpdateDealerModal = (props: Props) => {
@@ -37,6 +43,7 @@ export const UpdateDealerModal = (props: Props) => {
     customer_details: <UpdateCustomerBasic handleClose={handleClose} />,
     contact_info: <UpdateContactInfo handleClose={handleClose} />,
     notes: <UpdateNotes handleClose={handleClose} />,
+    car_models: <UpdateCarNotes handleClose={handleClose} />,
   };
 
   return (

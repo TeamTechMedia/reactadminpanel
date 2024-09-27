@@ -120,7 +120,6 @@ export const SecurityDeposit = () => {
   }
   const data = useContext(DealerContext);
   const { isDeposited, businessName = "Dealer", depositedAmount } = data || {};
-  console.log(depositedAmount, "dataCheck");
   return (
     <>
       <Card>

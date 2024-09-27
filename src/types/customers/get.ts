@@ -42,6 +42,7 @@ export interface Dealer {
   order_id: string;
   extraContactNo?: ContactDealerDetails[];
   internalNotes: { note: string; time: Date }[];
+  carNotes: { model: string }[];
 }
 
 export interface AddressProofBack {

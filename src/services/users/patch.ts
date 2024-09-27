@@ -17,6 +17,7 @@ interface DealerVerify {
   internalNotes?: { note: string; time: Date }[];
   isDeposited?: boolean;
   depositedAmount?: number;
+  carNotes?: { model: string }[];
 }
 
 interface UpdateDealerProps {
