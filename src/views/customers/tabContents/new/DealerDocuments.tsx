@@ -14,11 +14,11 @@ const DealerDocuments = (props: DataProps) => {
       images: [
         {
           label: "Front Image",
-          url: data?.data?.images ?? "asdd",
+          url: data?.addressProofFront?.url,
         },
         {
           label: "Back Image",
-          url: "",
+          url: data?.addressProofBack?.url,
         },
       ],
     },
@@ -27,7 +27,7 @@ const DealerDocuments = (props: DataProps) => {
       images: [
         {
           label: "PAN Image",
-          url: "www.pancard.com",
+          url: data?.panCard?.url,
         },
       ],
     },
@@ -36,11 +36,11 @@ const DealerDocuments = (props: DataProps) => {
       images: [
         {
           label: "Shop Image",
-          url: "",
+          url: data?.shopPicture?.url,
         },
         {
           label: "Visiting Card",
-          url: "",
+          url: data?.visitingCard?.url,
         },
       ],
     },
@@ -49,7 +49,7 @@ const DealerDocuments = (props: DataProps) => {
       images: [
         {
           label: "Image",
-          url: "",
+          url: data?.canceledCheque?.url,
         },
       ],
     },

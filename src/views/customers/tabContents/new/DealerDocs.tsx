@@ -10,6 +10,10 @@ interface Props {
 
 const DealerDocs = (props: Props) => {
   const { documents } = props;
+  function handleUpload(file: File) {
+    const formData = new FormData();
+    formData.append("file", file);
+  }
   return (
     <Card>
       <CardContent>
@@ -35,7 +39,10 @@ const DealerDocs = (props: Props) => {
                           <Typography fontWeight={500}>
                             {image.label}
                           </Typography>
-                          <ImageTile url={image.url} />
+                          <ImageTile
+                            url={image.url}
+                            handleBtnUpload={handleUpload}
+                          />
                           <Typography fontWeight={400} fontSize={14}>
                             {image.url ? "Uploaded" : "Not Uploaded"}
                           </Typography>
