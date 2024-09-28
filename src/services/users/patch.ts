@@ -28,7 +28,11 @@ interface UpdateDealerProps {
 
 const updateEvaluator = (props: UpdateDealerProps) => {
   const { id, body } = props;
-  return axiosInstance.patch(`${GET_EVALUATORS_ENDPOINT}/${id}`, body);
+  return axiosInstance.patch(`${GET_EVALUATORS_ENDPOINT}/${id}`, body, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };
 
 export const useUpdateDealer = () => {

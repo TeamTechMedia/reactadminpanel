@@ -2,6 +2,11 @@ import { Card, CardContent, Grid, Typography } from "@mui/material";
 import { DealerCardContent } from "../../cards/content/DealerCardContent";
 import ActivityLog from "@/components/ui/log/ActivityLog";
 import { useState } from "react";
+import {
+  DealerActivityFilterType,
+  useGetDealerActivity,
+} from "@/services/dealers/activity/get";
+import { useRouter } from "next/router";
 
 interface Props {
   data: any;
@@ -36,9 +41,17 @@ const timelines = [
 
 export const DealerActivity = (props: Props) => {
   const { data } = props;
-  console.log(data, "dataCheck");
-  const [filterValue, setFilterValue] = useState("all");
-  const [adminFilterValue, setAdminFilterValue] = useState("all");
+  const [filterValue, setFilterValue] =
+    useState<DealerActivityFilterType>("lastWeek");
+  const [adminFilterValue, setAdminFilterValue] =
+    useState<DealerActivityFilterType>("lastWeek");
+  const router = useRouter();
+  const { data: dealerActivity } = useGetDealerActivity({
+    id: String(router.query.id),
+    filter: filterValue,
+  });
+
+  console.log(dealerActivity, data, "dataCheck");
 
   return (
     <Grid>

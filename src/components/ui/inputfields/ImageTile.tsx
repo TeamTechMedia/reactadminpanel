@@ -12,6 +12,7 @@ interface UploadBodyProps {
 interface Props {
   url: string;
   handleBtnUpload?: (file: File) => void;
+  handleOnClick?: () => void;
 }
 
 const MAX_FILE_SIZE_MB = 5;
@@ -100,7 +101,7 @@ const UploadBody = (props: UploadBodyProps) => {
 };
 
 export const ImageTile = (props: Props) => {
-  const { url, handleBtnUpload } = props;
+  const { url, handleBtnUpload, handleOnClick } = props;
   const [isHovered, setIsHovered] = useState(false);
   const [openUpload, setOpenUpload] = useState(false);
   function handleHover() {
@@ -130,6 +131,7 @@ export const ImageTile = (props: Props) => {
         borderRadius={1}
         onMouseEnter={handleHover}
         onMouseLeave={handleHover}
+        onClick={handleOnClick}
       >
         <Grid
           position={"relative"}

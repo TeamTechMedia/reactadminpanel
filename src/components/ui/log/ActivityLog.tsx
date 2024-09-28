@@ -14,6 +14,7 @@ import TimelineConnector from "@mui/lab/TimelineConnector";
 import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineDot from "@mui/lab/TimelineDot";
 import React, { SetStateAction } from "react";
+import { DealerActivityFilterType } from "@/services/dealers/activity/get";
 
 interface Timeline {
   date: string;
@@ -23,7 +24,7 @@ interface Timeline {
 interface Props {
   timelines: Timeline[];
   value: string;
-  setValue: React.Dispatch<SetStateAction<string>>;
+  setValue: React.Dispatch<SetStateAction<DealerActivityFilterType>>;
   heading: string;
   subHeading: string;
 }
@@ -39,10 +40,12 @@ export default function ActivityLog(props: Props) {
             size="small"
             sx={{ minWidth: 200 }}
             value={value}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={(e) =>
+              setValue(e.target.value as DealerActivityFilterType)
+            }
           >
-            <MenuItem value={"all"}>All</MenuItem>
-            <MenuItem value={"24"}>Last 24 Hrs</MenuItem>
+            <MenuItem value={"lastWeek"}>All</MenuItem>
+            <MenuItem value={"24hours"}>Last 24 Hrs</MenuItem>
           </Select>
         </Grid>
         <Divider sx={{ paddingY: 2 }} />

@@ -1,18 +1,39 @@
 import { ImageTile } from "@/components/ui/inputfields/ImageTile";
 import { BorderWrapper } from "@/components/ui/wrappers/BorderWrapper";
+import { useUpdateDealer } from "@/services/users/patch";
 import { DealerDocument } from "@/types/customers/file";
 import { DealerCardContent } from "@/views/customers/cards/content/DealerCardContent";
 import { Card, CardContent, Grid, Typography } from "@mui/material";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 interface Props {
   documents: DealerDocument[];
 }
 
+const dealerUploads: any = {
+  "Front Image": "addressProofFront",
+  "Back Image": "addressProofBack",
+  "PAN Image": "panCard",
+  "Shop Image": "shopPicture",
+  "Visiting Card": "visitingCard",
+  "Cancelled Cheque": "canceledCheque",
+};
+
 const DealerDocs = (props: Props) => {
   const { documents } = props;
+  const [imageType, setImageType] = useState<any>("");
+  const router = useRouter();
+  const update = useUpdateDealer();
+
   function handleUpload(file: File) {
     const formData = new FormData();
-    formData.append("file", file);
+    const key = dealerUploads[imageType];
+    formData.append(key, file);
+    update.mutate({
+      id: String(router.query.id),
+      body: formData as any,
+    });
   }
   return (
     <Card>
@@ -42,6 +63,7 @@ const DealerDocs = (props: Props) => {
                           <ImageTile
                             url={image.url}
                             handleBtnUpload={handleUpload}
+                            handleOnClick={() => setImageType(image.label)}
                           />
                           <Typography fontWeight={400} fontSize={14}>
                             {image.url ? "Uploaded" : "Not Uploaded"}
