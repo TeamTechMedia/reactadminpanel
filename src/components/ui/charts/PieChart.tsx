@@ -8,23 +8,26 @@ const ApexCharts = dynamic(() => import("react-apexcharts"), {
 
 export const PieChart = ({ data }: { data: CarsByBodyType[] }) => {
   if (!data) return;
-  const labels = data.map((item) => item._id);
-  const count = data.map((item) => item.count);
+  const labels = data
+    .map((item) => (item._id ? item._id : null))
+    .filter(Boolean);
+  const count = data.map((item) => item.count).filter(Boolean);
 
   const options = {
     series: count,
     chartOptions: {
-      labels: labels,
-      id: "salesChart",
+      labels: labels ?? [],
+      // id: "salesChart",
     },
 
     chart: {
+      // id: "salesCharts",
       type: "donut",
     },
     dataLabels: {
       enabled: false,
     },
-    labels: labels,
+    labels: labels ?? [],
     colors: ["#0158AF", "#4682B4", "#5F9EA0", "#87CEEB", "#B0C4DE"],
     responsive: [
       {
