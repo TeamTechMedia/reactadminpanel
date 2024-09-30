@@ -48,7 +48,7 @@ const DealerDocuments = (props: DataProps) => {
       name: "Cancelled Cheque",
       images: [
         {
-          label: "Image",
+          label: "Cheque Image",
           url: data?.canceledCheque?.url,
         },
       ],

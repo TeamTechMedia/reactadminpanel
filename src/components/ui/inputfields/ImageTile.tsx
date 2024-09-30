@@ -4,22 +4,26 @@ import { useState } from "react";
 import { ButtonIcon } from "../buttons/ButtonIcon";
 import fileThumbnail from "../../../../public/assets/file-thumbnail.svg";
 import ConfirmModal from "../modals/ConfirmModal";
+import ButtonSpinner from "../spinner/button";
 
 interface UploadBodyProps {
-  handleBtnUpload?: (file: File) => void;
+  handleBtnUpload?: (file: File, handleClose: () => void) => void;
+  handleUploadModelClose: () => void;
+  isUploading?: boolean;
 }
 
 interface Props {
   url: string;
-  handleBtnUpload?: (file: File) => void;
+  handleBtnUpload?: (file: File, handleClose: () => void) => void;
   handleOnClick?: () => void;
+  isUploading?: boolean;
 }
 
 const MAX_FILE_SIZE_MB = 5;
 const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png", "image/gif"];
 
 const UploadBody = (props: UploadBodyProps) => {
-  const { handleBtnUpload } = props;
+  const { handleBtnUpload, handleUploadModelClose, isUploading } = props;
   const [selectedFile, setSelectedFile] = useState<any>(null);
   const [error, setError] = useState<null | string>(null);
   const [previewUrl, setPreviewUrl] = useState<null | string>(null);
@@ -83,10 +87,14 @@ const UploadBody = (props: UploadBodyProps) => {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => handleBtnUpload && handleBtnUpload(selectedFile)}
+              disabled={Boolean(isUploading)}
+              onClick={() =>
+                handleBtnUpload &&
+                handleBtnUpload(selectedFile, handleUploadModelClose)
+              }
               sx={{ mt: 2 }}
             >
-              Upload
+              Upload {isUploading && <ButtonSpinner />}
             </Button>
           </div>
         )}
@@ -101,7 +109,7 @@ const UploadBody = (props: UploadBodyProps) => {
 };
 
 export const ImageTile = (props: Props) => {
-  const { url, handleBtnUpload, handleOnClick } = props;
+  const { url, handleBtnUpload, handleOnClick, isUploading } = props;
   const [isHovered, setIsHovered] = useState(false);
   const [openUpload, setOpenUpload] = useState(false);
   function handleHover() {
@@ -170,7 +178,13 @@ export const ImageTile = (props: Props) => {
       <ConfirmModal
         icon="tabler:upload"
         iconSize={"1rem"}
-        ContentComponent={<UploadBody handleBtnUpload={handleBtnUpload} />}
+        ContentComponent={
+          <UploadBody
+            handleBtnUpload={handleBtnUpload}
+            handleUploadModelClose={handleUpload}
+            isUploading={isUploading}
+          />
+        }
         dailogueTitle="Media Upload"
         handleClose={handleUpload}
         open={openUpload}
