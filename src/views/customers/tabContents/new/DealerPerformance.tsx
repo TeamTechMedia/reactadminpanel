@@ -78,7 +78,11 @@ export default function DealerPerformance(props: Props) {
                   {numberToINR(Number(performanceData?.averagePrice))}
                 </Typography>
               </Grid>
-              {typeof window !== "undefined" && <BarGraph />}
+              {typeof window !== "undefined" && (
+                <BarGraph
+                  data={performanceData?.carsByBodyType as CarsByBodyType[]}
+                />
+              )}
             </CardContent>
           </Card>
         </Grid>
