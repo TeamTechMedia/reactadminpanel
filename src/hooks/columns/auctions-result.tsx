@@ -85,7 +85,6 @@ export default function useColumns(props: AuctionResultColsProps) {
         const { isRejected, fullname, id, userId } = row;
         const isWinner = userId === winner;
         const disableChoose = !isWinnerRejected;
-        console.log(row, "rowCheck");
 
         return (
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>

@@ -4,9 +4,9 @@ import LiveFeed from "./LiveFeed";
 import { AuctionLiveFilterParams } from "@/types/live/auctions";
 import { useGetLiveData } from "@/hooks/live/useGetLiveData";
 import { addKey } from "@/utils/add-key";
-import { getSlicedData } from "@/functions/live/auction/get-sliced-data";
-import useUpdateCarById from "@/hooks/actions/cars/update-car";
 import useCustomToast from "@/utils/toast";
+import { useStopCar } from "@/services/live/auctions/stop/patch";
+import { errorMessageParser } from "@/utils/error";
 
 interface Props {
   filterParams: AuctionLiveFilterParams;
@@ -19,12 +19,13 @@ function LiveOtbTab(props: Props) {
   const [openStop, setOpenStop] = useState(false);
   const [openViews, setOpenViews] = useState(false);
   const [stopId, setStopId] = useState<string>("");
+  const [eventId, setEventId] = useState<string>("");
   const [log, setLog] = useState<any>();
   const [params, setParams] = useState({
     page: 0,
     pageSize: 10,
   });
-  const { updateCar: update, isPending } = useUpdateCarById();
+  const stop = useStopCar();
   const toast = useCustomToast();
   const handleLogModal = () => {
     setOpenLog(!openLog);
@@ -43,22 +44,29 @@ function LiveOtbTab(props: Props) {
     setOpenStop(!openStop);
   };
 
-  const handleStop = (id: string) => {
+  const handleStop = (id: string, eventID: string) => {
     handleStopModal();
     setStopId(id);
+    setEventId(eventID);
   };
 
   const handleStopProceed = () => {
-    update({
-      body: {
-        status: "STOPPED",
+    stop.mutate(
+      {
+        id: stopId,
+        body: {
+          status: "OTB_STOPPED",
+          auctionOrOTBId: eventId,
+        },
       },
-      id: stopId,
-      handleSuccess: () => {
-        handleStop("");
-        toast.success("Otb Stopped Successfully!!");
+      {
+        onSuccess: () => {
+          toast.success("Otb Stopped Successfully");
+          handleStopModal();
+        },
+        onError: (err) => toast.error(errorMessageParser(err)),
       },
-    });
+    );
   };
 
   const handleViewers = (item: any) => {
@@ -79,17 +87,10 @@ function LiveOtbTab(props: Props) {
     filterParams,
   });
   const liveOtbs = data?.data;
-  const page = params.page + 1;
-  const pageSize = params.pageSize;
   const hasSearch = searchText && searchText !== "";
   const hasFilters = hasSearch || status;
-  const slicedData = getSlicedData({
-    liveAuctions: liveOtbs,
-    page,
-    pageSize,
-    filterParams,
-  });
-  const slicedDataWithId = addKey(slicedData, "id", "_id") ?? [];
+
+  const liveOtbsWithId = addKey(liveOtbs, "id", "_id") ?? [];
 
   useEffect(() => {
     if (hasFilters) {
@@ -104,7 +105,7 @@ function LiveOtbTab(props: Props) {
     <div>
       <LiveFeed
         columns={columns}
-        data={slicedDataWithId as any}
+        data={liveOtbsWithId as any}
         type="otb"
         handleClose={handleLogModal}
         openLog={openLog}
@@ -116,7 +117,7 @@ function LiveOtbTab(props: Props) {
         handleViewers={handleViewersModal}
         params={params}
         setParams={setParams}
-        disableStopProceed={isPending}
+        disableStopProceed={stop.isPending}
         rowCount={data?.count ?? 100000}
         isFetching={isLoading}
       />
