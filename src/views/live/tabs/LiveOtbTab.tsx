@@ -64,7 +64,7 @@ function LiveOtbTab(props: Props) {
           toast.success("Otb Stopped Successfully");
           handleStopModal();
         },
-        onError: (err) => toast.error(errorMessageParser(err)),
+        onError: (err: unknown) => toast.error(errorMessageParser(err)),
       },
     );
   };

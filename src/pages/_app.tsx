@@ -3,7 +3,6 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import {
   JSXElementConstructor,
-  PromiseLikeOfReactNode,
   ReactElement,
   ReactNode,
   ReactPortal,
@@ -64,7 +63,6 @@ export default function App({ Component, pageProps }: ExtendedAppProps) {
         | ReactElement<any, string | JSXElementConstructor<any>>
         | Iterable<ReactNode>
         | ReactPortal
-        | PromiseLikeOfReactNode
         | null
         | undefined,
     ) => (

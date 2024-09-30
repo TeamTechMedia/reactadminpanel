@@ -145,7 +145,7 @@ export const useColumns = (props: Props) => {
         const { status } = row;
         return (
           <Chip
-            label={isAuction ? status : otbStatus[status] ?? status}
+            label={isAuction ? status : (otbStatus[status] ?? status)}
             variant="outlined"
             color={getStatusColor(status as LiveAuctionStatus) ?? "info"}
           />
