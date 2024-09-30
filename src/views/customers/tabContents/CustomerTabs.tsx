@@ -19,7 +19,7 @@ export default function CustomerTabs(props: CustomerTabsProps) {
   const CustomerTabs = {
     dealer_details: <CustomerDetails data={data} />,
     documents: <DealerDocuments data={data} />,
-    activity: <DealerActivity data={data} />,
+    activity: <DealerActivity />,
     performance: <DealerPerformance data={data} />,
   };
   return (

@@ -28,3 +28,10 @@ export const useGetDealerActivity = (params: DealerActivityParams) => {
     queryFn: () => getActivity(params),
   });
 };
+
+export const useGetAdminActivity = (params: DealerActivityParams) => {
+  return useQuery({
+    queryKey: ["admin-activity", params],
+    queryFn: () => getActivity(params),
+  });
+};

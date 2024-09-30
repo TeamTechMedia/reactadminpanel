@@ -6,6 +6,7 @@ import {
   Grid,
   MenuItem,
   Select,
+  Typography,
 } from "@mui/material";
 import Timeline from "@mui/lab/Timeline";
 import TimelineItem from "@mui/lab/TimelineItem";
@@ -15,10 +16,15 @@ import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineDot from "@mui/lab/TimelineDot";
 import React, { SetStateAction } from "react";
 import { DealerActivityFilterType } from "@/services/dealers/activity/get";
+import { numberToINR } from "@/utils/convert-to-rs";
+import { formatDateAndTime } from "@/utils/format-date-and-time";
 
 interface Timeline {
-  date: string;
-  action: string;
+  amount: number;
+  model: string;
+  variant: string;
+  date: Date;
+  type: string;
 }
 
 interface Props {
@@ -50,17 +56,25 @@ export default function ActivityLog(props: Props) {
         </Grid>
         <Divider sx={{ paddingY: 2 }} />
         <Timeline position="alternate">
-          {timelines.map((timeline, index) => {
-            return (
-              <TimelineItem key={index}>
-                <TimelineSeparator>
-                  <TimelineDot color="info" />
-                  <TimelineConnector />
-                </TimelineSeparator>
-                <TimelineContent>{timeline.date}</TimelineContent>
-              </TimelineItem>
-            );
-          })}
+          {timelines.length ? (
+            timelines.map((timeline, index) => {
+              const { amount, model, variant, date, type } = timeline || {};
+              const content = `${numberToINR(amount ?? 0)} for a ${model} (${variant})  ${date ? `on ${formatDateAndTime(date)}` : ""} ${type ? `with type: ${type}` : ""}`;
+              return (
+                <TimelineItem key={index}>
+                  <TimelineSeparator>
+                    <TimelineDot color="info" />
+                    <TimelineConnector />
+                  </TimelineSeparator>
+                  <TimelineContent>{content}</TimelineContent>
+                </TimelineItem>
+              );
+            })
+          ) : (
+            <Grid p={2} display={"flex"} justifyContent={"center"}>
+              <Typography>No Data</Typography>
+            </Grid>
+          )}
         </Timeline>
       </CardContent>
     </Card>
