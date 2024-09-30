@@ -8,6 +8,8 @@ interface LiveCar {
   _id: string;
   front: { url: string };
   created_at: string;
+  customerPrice: string;
+  realValue: number;
 }
 
 interface Props {
@@ -118,7 +120,12 @@ export const useGetLiveData = (props: Props) => {
                 // If the car exists, update its data
                 return liveData.map((liveCar) => {
                   if (liveCar._id === updatedDataObj._id) {
-                    return { front: liveCar.front, ...updatedDataObj };
+                    return {
+                      front: liveCar.front,
+                      realValue: liveCar?.realValue,
+                      customerPrice: liveCar?.customerPrice,
+                      ...updatedDataObj,
+                    };
                   }
                   return liveCar;
                 });
