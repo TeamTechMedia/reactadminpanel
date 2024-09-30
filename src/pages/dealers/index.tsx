@@ -32,8 +32,15 @@ export default function Dealers() {
       limit: params.pageSize,
     },
   });
-  const dealerContext =
-    { params, setParams, data, isLoading, control, watch, setValue } || null;
+  const dealerContext = {
+    params,
+    setParams,
+    data,
+    isLoading,
+    control,
+    watch,
+    setValue,
+  };
 
   return (
     <DealerContext.Provider value={dealerContext}>

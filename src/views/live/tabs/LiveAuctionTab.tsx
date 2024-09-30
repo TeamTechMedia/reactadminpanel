@@ -94,7 +94,7 @@ function LiveAuctionTab(props: Props) {
           toast.success("Bid Placed Successfully");
           handleBidModal();
         },
-        onError: (err) => toast.error(errorMessageParser(err)),
+        onError: (err: unknown) => toast.error(errorMessageParser(err)),
       },
     );
   };
