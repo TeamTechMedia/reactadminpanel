@@ -7,6 +7,7 @@ import io from "socket.io-client";
 interface LiveCar {
   _id: string;
   front: { url: string };
+  created_at: string;
 }
 
 interface Props {
@@ -14,6 +15,14 @@ interface Props {
   params: { page: number; pageSize: number };
   filterParams: AuctionLiveFilterParams;
 }
+
+export const auctionStatuses = ["LIVE", "SCHEDULED", "COMPLETED", "STOPPED"];
+export const otbStatuses = [
+  "OTB",
+  "OTB_SCHEDULED",
+  "OTB_STOPPED",
+  "OTB_COMPLETED",
+];
 
 export const useGetLiveData = (props: Props) => {
   const { tab, params, filterParams } = props;
@@ -61,8 +70,7 @@ export const useGetLiveData = (props: Props) => {
         isLoading: isOtbLoading,
       };
 
-  const socketKey = isAuction ? "getLiveResult" : "getLiveOTBResult";
-  const socketIndivitualKey = "getAdminResult";
+  const socketKey = "getLiveResult";
 
   useEffect(() => {
     socketInitializer();
@@ -80,27 +88,61 @@ export const useGetLiveData = (props: Props) => {
     socket = io(process.env.NEXT_PUBLIC_WEBSOCKET_URL ?? "", {
       transports: ["websocket"],
     });
+
     socket.on(socketKey, (socketData: string) => {
       try {
-        const data = JSON.parse(socketData);
-        setLive(data);
-      } catch (e) {
-        console.error("Invalid JSON string", e);
-      }
-    });
+        const parsedData = JSON.parse(socketData);
+        const updatedDataObj = parsedData?.[0];
+        console.log(updatedDataObj, "updatedCar");
+        if (updatedDataObj) {
+          // Check status validity based on the current tab
+          const isValidStatus = isAuction
+            ? auctionStatuses.includes(updatedDataObj.status)
+            : otbStatuses.includes(updatedDataObj.status);
 
-    socket.on(socketIndivitualKey, (socketData: string) => {
-      try {
-        const data = JSON.parse(socketData);
-        const updatedDataObj = data?.[0];
-        setLive((liveData: LiveCar[]) => {
-          const update = liveData?.map((liveCar: LiveCar) => {
-            return liveCar._id === updatedDataObj._id
-              ? { front: liveCar.front, ...updatedDataObj }
-              : liveCar;
-          });
-          return update;
-        });
+          if (isValidStatus) {
+            if (status && updatedDataObj.status !== status) {
+              return;
+            }
+
+            if (searchText && updatedDataObj.carID !== searchText) {
+              return;
+            }
+
+            setLive((liveData: LiveCar[]) => {
+              const existingCar = liveData.find(
+                (liveCar) => liveCar._id === updatedDataObj._id,
+              );
+
+              if (existingCar) {
+                // If the car exists, update its data
+                return liveData.map((liveCar) => {
+                  if (liveCar._id === updatedDataObj._id) {
+                    return { front: liveCar.front, ...updatedDataObj };
+                  }
+                  return liveCar;
+                });
+              } else {
+                // If the car doesn't exist, check the `created_at` condition
+                const firstCar = liveData[0];
+
+                if (
+                  new Date(updatedDataObj.created_at) >
+                  new Date(firstCar?.created_at)
+                ) {
+                  // If the new item is more recent than the first item
+                  return [
+                    updatedDataObj,
+                    ...liveData.slice(0, liveData.length - 1),
+                  ];
+                } else {
+                  // Otherwise, keep the array unchanged
+                  return liveData;
+                }
+              }
+            });
+          }
+        }
       } catch (e) {
         console.error("Invalid JSON string", e);
       }
