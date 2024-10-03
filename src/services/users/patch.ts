@@ -8,7 +8,7 @@ interface ExtraContact {
 }
 
 interface DealerVerify {
-  isDocumentsVerified?: "VERIFIED";
+  isDocumentsVerified?: "VERIFIED" | "REJECTED";
   name?: string;
   businessAddress?: string;
   businessName?: string;
