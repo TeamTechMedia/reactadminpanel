@@ -81,8 +81,8 @@ const DataTable = (carDataTableProps: CarDataTableProps) => {
           disableColumnSelector
           columns={(columns as any) ?? []}
           loading={isLoading || postSearch.isPending}
-          rows={isPost ? carsPostData : ((cars as any) ?? [])}
-          rowCount={isPost ? count : (carsData?.data.count ?? 0)}
+          rows={isPost ? carsPostData : (cars as any) ?? []}
+          rowCount={isPost ? count : carsData?.data.count ?? 0}
           paginationMode="server"
           paginationModel={params}
           onPaginationModelChange={setParams}
