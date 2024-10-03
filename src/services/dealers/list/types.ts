@@ -16,7 +16,7 @@ interface Meta {
   refresh: string;
 }
 
-interface Datum {
+export interface Datum {
   _id: string;
   userId: string;
   isBlocked: boolean;

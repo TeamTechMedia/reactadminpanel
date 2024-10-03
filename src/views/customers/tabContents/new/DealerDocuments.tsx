@@ -56,7 +56,7 @@ const DealerDocuments = (props: DataProps) => {
   ];
   return (
     <Card>
-      <DealerDocs documents={documents} />
+      <DealerDocs documents={documents} data={data} />
     </Card>
   );
 };
