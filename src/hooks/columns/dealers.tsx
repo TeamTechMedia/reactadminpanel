@@ -18,6 +18,7 @@ interface RowType {
   isDocumentsVerified: DocStatus;
   contactNo: string;
   isDeposited: boolean;
+  isDeactivate: boolean;
 }
 
 type CellType = {
@@ -28,6 +29,7 @@ const docColor = {
   SUBMITTED: "success",
   NOTSUBMITTED: "warning",
   VERIFIED: "success",
+  REJECTED: "error",
 };
 
 function getDocumentColor(documentStatus: DocStatus) {
@@ -64,7 +66,6 @@ const useColumns = () => {
       headerName: "Dealership Name",
       renderCell: ({ row }: { row: RowType }) => {
         const { id, businessName } = row;
-        console.log(row, "rowCheck");
         return (
           <ClickableTypography
             onClick={() => {
@@ -101,7 +102,6 @@ const useColumns = () => {
       minWidth: 50,
       headerName: "Document Status",
       renderCell: ({ row }: CellType) => {
-        console.log(row, "rowCheck");
         return (
           <Chip
             label={row.isDocumentsVerified ?? "-"}
@@ -119,9 +119,9 @@ const useColumns = () => {
       renderCell: ({ row }: { row: RowType }) => {
         return (
           <Chip
-            label={row.isDocumentsVerified ?? "-"}
+            label={row.isDeposited ? "Paid" : "Unpaid"}
             variant="outlined"
-            color={getDocumentColor(row.isDocumentsVerified) as any}
+            color={row.isDeposited ? "success" : "error"}
           />
         );
       },
@@ -134,9 +134,9 @@ const useColumns = () => {
       renderCell: ({ row }: CellType) => {
         return (
           <Chip
-            label={row.isDocumentsVerified ?? "-"}
+            label={row.isDeactivate ? "Suspended" : "Active"}
             variant="outlined"
-            color={getDocumentColor(row.isDocumentsVerified) as any}
+            color={row?.isDeactivate ? "error" : "success"}
           />
         );
       },
