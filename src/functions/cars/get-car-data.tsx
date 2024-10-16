@@ -14,6 +14,10 @@ const getCarData = (details: CarData) => {
       value: details.uniqueId,
     },
     {
+      label: "Lead Id",
+      value: details.leadUniqueId,
+    },
+    {
       label: "Car Name",
       value: details.model,
     },

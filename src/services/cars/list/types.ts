@@ -77,6 +77,7 @@ interface Data2 {
 export interface CarData {
   _id: string;
   id: string;
+  leadUniqueId: string;
   userId: string;
   make: string;
   model: string;
