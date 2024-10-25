@@ -20,6 +20,7 @@ import { numberToINR } from "@/utils/convert-to-rs";
 import { formatDateAndTime } from "@/utils/format-date-and-time";
 
 interface Timeline {
+  subject?: string;
   amount: number;
   model: string;
   variant: string;
@@ -33,10 +34,11 @@ interface Props {
   setValue: React.Dispatch<SetStateAction<DealerActivityFilterType>>;
   heading: string;
   subHeading: string;
+  isAdmin?: boolean;
 }
 
 export default function ActivityLog(props: Props) {
-  const { timelines, value, setValue, heading, subHeading } = props;
+  const { timelines, value, setValue, heading, subHeading, isAdmin } = props;
   return (
     <Card>
       <CardContent>
@@ -58,8 +60,11 @@ export default function ActivityLog(props: Props) {
         <Timeline position="alternate">
           {timelines.length ? (
             timelines.map((timeline, index) => {
-              const { amount, model, variant, date, type } = timeline || {};
-              const content = `${numberToINR(amount ?? 0)} for a ${model} (${variant})  ${date ? `on ${formatDateAndTime(date)}` : ""} ${type ? `with type: ${type}` : ""}`;
+              const { subject, amount, model, variant, date, type } =
+                timeline || {};
+              const content = isAdmin
+                ? `${subject ? `${subject} ` : ""}${date ? `on ${formatDateAndTime(date)}` : ""}`
+                : `${numberToINR(amount ?? 0)} for a ${model} (${variant}) ${date ? `on ${formatDateAndTime(date)}` : ""} ${type ? `with type: ${type}` : ""}`;
               return (
                 <TimelineItem key={index}>
                   <TimelineSeparator>

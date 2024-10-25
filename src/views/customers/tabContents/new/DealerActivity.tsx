@@ -70,6 +70,7 @@ export const DealerActivity = () => {
                 setValue={setAdminFilterValue}
                 heading="Admin Activity"
                 subHeading="Activities from admin side"
+                isAdmin
               />
             )}
           </Grid>
