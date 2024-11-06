@@ -4,12 +4,13 @@ import LiveFeed from "./LiveFeed";
 import AuctionBidModal from "../modals/AuctionBidModal";
 import { LiveAuctionItem } from "@/services/live/auctions/list/types";
 import { useGetLiveData } from "@/hooks/live/useGetLiveData";
+import useUpdateCarById from "@/hooks/actions/cars/update-car";
 import useCustomToast from "@/utils/toast";
 import { useAuctionBid } from "@/services/live/auctions/bid/post";
 import { errorMessageParser } from "@/utils/error";
 import { addKey } from "@/utils/add-key";
+import { getSlicedData } from "@/functions/live/auction/get-sliced-data";
 import { AuctionLiveFilterParams } from "@/types/live/auctions";
-import { useStopCar } from "@/services/live/auctions/stop/patch";
 
 interface Props {
   filterParams: AuctionLiveFilterParams;
@@ -23,15 +24,13 @@ function LiveAuctionTab(props: Props) {
   const [openViews, setOpenViews] = useState(false);
   const [openBid, setOpenBid] = useState(false);
   const [stopId, setStopId] = useState<string>("");
-  const [eventId, setEventId] = useState<string>("");
   const [log, setLog] = useState<LiveAuctionItem>();
   const [params, setParams] = useState({
     page: 0,
     pageSize: 10,
   });
 
-  // const { updateCar: update, isPending } = useUpdateCarById();
-  const update = useStopCar();
+  const { updateCar: update, isPending } = useUpdateCarById();
   const bid = useAuctionBid();
   const toast = useCustomToast();
 
@@ -56,29 +55,22 @@ function LiveAuctionTab(props: Props) {
     setOpenStop(!openStop);
   };
 
-  const handleStop = (id: string, eventID: string) => {
+  const handleStop = (id: string) => {
     handleStopModal();
     setStopId(id);
-    setEventId(eventID);
   };
 
   const handleStopProceed = () => {
-    update.mutate(
-      {
-        body: {
-          status: "STOPPED",
-          auctionOrOTBId: eventId,
-        },
-        id: stopId,
+    update({
+      body: {
+        status: "STOPPED",
       },
-      {
-        onSuccess: () => {
-          toast.success("Auction Stopped Successfully");
-          handleStopModal();
-        },
-        onError: (err: unknown) => toast.error(errorMessageParser(err)),
+      id: stopId,
+      handleSuccess: () => {
+        handleStop("");
+        toast.success("Auction Stopped Successfully!!");
       },
-    );
+    });
   };
 
   const handleViewers = (item: LiveAuctionItem) => {
@@ -121,10 +113,17 @@ function LiveAuctionTab(props: Props) {
     filterParams,
   });
   const liveAuctions = data?.data;
+  const page = params.page + 1;
+  const pageSize = params.pageSize;
   const hasSearch = searchText && searchText !== "";
   const hasFilters = hasSearch || status;
-
-  const liveAuctionsWithId = addKey(liveAuctions, "id", "_id") ?? [];
+  const slicedData = getSlicedData({
+    liveAuctions,
+    page,
+    pageSize,
+    filterParams,
+  });
+  const slicedDataWithId = addKey(slicedData, "id", "_id") ?? [];
 
   useEffect(() => {
     if (hasFilters) {
@@ -139,7 +138,7 @@ function LiveAuctionTab(props: Props) {
     <div>
       <LiveFeed
         columns={columns}
-        data={(liveAuctionsWithId ?? []) as any[]}
+        data={(slicedDataWithId ?? []) as any[]}
         type="auction"
         handleClose={handleLogModal}
         openLog={openLog}
@@ -153,12 +152,12 @@ function LiveAuctionTab(props: Props) {
         isFetching={isLoading}
         rowCount={data?.count ?? 10000}
         handleStopProceed={handleStopProceed}
-        disableStopProceed={update.isPending}
+        disableStopProceed={isPending}
       />
       <AuctionBidModal
         handleClose={handleBidModal}
         handleBid={handleAdminBid}
-        data={liveAuctionsWithId ?? []}
+        data={slicedDataWithId ?? []}
         logId={log?._id ?? ""}
         openBid={openBid}
         disableBid={bid.isPending}
