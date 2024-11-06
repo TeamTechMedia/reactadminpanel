@@ -40,7 +40,7 @@ const stopStatuses = ["SCHEDULED", "LIVE", "OTB_SCHEDULED", "OTB"];
 
 interface Props {
   handleLog: (item: LiveAuctionItem) => void;
-  handleStop: (id: string, eventId: string) => void;
+  handleStop: (id: string) => void;
   handleViewers: (item: LiveAuctionItem) => void;
   handleBid?: (item: LiveAuctionItem) => void;
   type?: LiveTabTypes;
@@ -165,7 +165,6 @@ export const useColumns = (props: Props) => {
         const showLog = status !== scheduledLabel;
         const showWatch = true;
         const showBid = status === liveLabel && isAuction;
-        const eventId = isAuction ? row?.auctionId : row?.OTBId;
         return (
           <Box sx={{ display: "flex", alignItems: "center" }}>
             {showLog && (
@@ -177,7 +176,7 @@ export const useColumns = (props: Props) => {
             )}
             {isStoppable && (
               <ButtonIcon
-                onClick={() => handleStop(row.carId, eventId)}
+                onClick={() => handleStop(row.carId)}
                 icon="tabler:ban"
                 title="Stop Auction"
               />
