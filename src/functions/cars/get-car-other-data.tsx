@@ -65,6 +65,7 @@ const getCarOtherData = (allCarInfo: AllCarInfo) => {
   };
 
   const specialCommentsObj = {
+    "Car Condition": allCarInfo?.carCondition,
     "Special Comments": allCarInfo?.specialComments,
   };
 
